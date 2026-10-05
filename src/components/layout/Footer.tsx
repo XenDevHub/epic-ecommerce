@@ -43,33 +43,29 @@ const footerLinks = {
 
 export default function Footer() {
   return (
-    <footer className="relative mt-20">
-      {/* Gradient Line */}
-      <div className="h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
-
+    <footer className="relative mt-20 border-t border-slate-200 bg-white">
       {/* Newsletter Section */}
-      <div className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent" />
+      <div className="relative overflow-hidden bg-gradient-to-b from-slate-50 to-white border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 md:px-6 py-12 relative">
           <div className="max-w-lg mx-auto text-center">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs font-semibold text-primary-light mb-4">
-              <Sparkles size={12} />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs font-bold text-primary mb-4">
+              <Sparkles size={13} />
               Stay Updated
             </div>
-            <h3 className="text-2xl font-display font-bold text-text-primary mb-2">
+            <h3 className="text-2xl font-display font-bold text-slate-900 mb-2">
               Get the best deals first
             </h3>
-            <p className="text-sm text-text-secondary mb-6">
+            <p className="text-sm text-slate-600 mb-6">
               Subscribe for exclusive offers, new arrivals, and festival deals
             </p>
             <div className="flex gap-2">
               <input
                 type="email"
-                placeholder="Enter your email"
-                className="flex-1 px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-sm text-text-primary placeholder:text-text-muted outline-none focus:border-primary/50 focus:shadow-[0_0_20px_rgba(108,71,255,0.1)] transition-all"
+                placeholder="Enter your email address"
+                className="flex-1 px-4 py-3 rounded-xl bg-white border border-slate-300 text-sm text-slate-900 placeholder:text-slate-400 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all shadow-sm"
                 id="newsletter-email"
               />
-              <button className="px-6 py-3 rounded-xl bg-gradient-to-r from-primary to-primary-light text-white text-sm font-semibold hover:shadow-[0_8px_25px_rgba(108,71,255,0.4)] hover:-translate-y-0.5 transition-all active:scale-95">
+              <button className="px-6 py-3 rounded-xl bg-primary text-white text-sm font-bold hover:bg-primary-dark transition-all active:scale-95 shadow-md shadow-primary/20">
                 Subscribe
               </button>
             </div>
@@ -78,20 +74,20 @@ export default function Footer() {
       </div>
 
       {/* Main Footer */}
-      <div className="bg-bg-secondary/50 backdrop-blur-sm border-t border-white/5">
+      <div className="bg-white">
         <div className="max-w-7xl mx-auto px-4 md:px-6 py-12">
           <div className="grid grid-cols-2 md:grid-cols-5 gap-8 md:gap-12">
             {/* Brand */}
             <div className="col-span-2 md:col-span-1">
               <div className="flex items-center gap-2 mb-4">
-                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-                  <span className="text-white font-bold text-xs">E</span>
+                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-primary-light flex items-center justify-center shadow-md">
+                  <span className="text-white font-black text-xs">E</span>
                 </div>
-                <span className="text-lg font-display font-bold text-text-primary">
+                <span className="text-lg font-display font-black text-slate-900">
                   E-Pic
                 </span>
               </div>
-              <p className="text-sm text-text-secondary mb-5 leading-relaxed">
+              <p className="text-sm text-slate-600 mb-5 leading-relaxed">
                 Bangladesh&apos;s premium marketplace. Free for everyone — no
                 seller fees, no hidden charges.
               </p>
@@ -105,7 +101,7 @@ export default function Footer() {
                     key={i}
                     href={href}
                     title={title}
-                    className="w-9 h-9 rounded-lg bg-white/5 hover:bg-primary/15 border border-white/5 hover:border-primary/30 flex items-center justify-center text-text-muted hover:text-primary-light transition-all"
+                    className="w-9 h-9 rounded-xl bg-slate-100 hover:bg-primary/10 border border-slate-200 flex items-center justify-center text-slate-600 hover:text-primary transition-all"
                   >
                     <Icon size={16} />
                   </a>
@@ -121,7 +117,7 @@ export default function Footer() {
               ][]
             ).map(([title, links]) => (
               <div key={title}>
-                <h4 className="text-xs font-semibold text-text-primary uppercase tracking-widest mb-4">
+                <h4 className="text-xs font-bold text-slate-900 uppercase tracking-widest mb-4">
                   {title}
                 </h4>
                 <ul className="space-y-2.5">
@@ -132,7 +128,7 @@ export default function Footer() {
                           href={link.href}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-sm text-text-muted hover:text-text-primary transition-colors inline-flex items-center gap-1 group"
+                          className="text-sm text-slate-600 hover:text-primary transition-colors inline-flex items-center gap-1 group font-medium"
                         >
                           {link.label}
                           <ArrowUpRight
@@ -143,7 +139,7 @@ export default function Footer() {
                       ) : (
                         <Link
                           href={link.href}
-                          className="text-sm text-text-muted hover:text-text-primary transition-colors"
+                          className="text-sm text-slate-600 hover:text-primary transition-colors font-medium"
                         >
                           {link.label}
                         </Link>
@@ -156,7 +152,7 @@ export default function Footer() {
           </div>
 
           {/* Contact Row */}
-          <div className="flex flex-wrap gap-6 mt-10 pt-8 border-t border-white/5">
+          <div className="flex flex-wrap gap-6 mt-10 pt-8 border-t border-slate-200">
             {[
               { icon: Phone, text: "+880 1XXX-XXXXXX" },
               { icon: Mail, text: "support@epic.co" },
@@ -164,9 +160,9 @@ export default function Footer() {
             ].map(({ icon: Icon, text }, i) => (
               <div
                 key={i}
-                className="flex items-center gap-2 text-xs text-text-muted"
+                className="flex items-center gap-2 text-xs font-semibold text-slate-600"
               >
-                <Icon size={14} className="text-text-muted" />
+                <Icon size={14} className="text-primary" />
                 {text}
               </div>
             ))}
@@ -174,8 +170,8 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-white/5">
-          <div className="max-w-7xl mx-auto px-4 md:px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-2 text-xs text-text-muted">
+        <div className="border-t border-slate-200 bg-slate-50">
+          <div className="max-w-7xl mx-auto px-4 md:px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-2 text-xs text-slate-500 font-medium">
             <p>© 2026 E-Pic Marketplace. All rights reserved.</p>
             <p>
               Powered by{" "}
@@ -183,7 +179,7 @@ export default function Footer() {
                 href="https://xeni.co"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-primary-light hover:text-primary transition-colors font-medium"
+                className="text-primary hover:underline font-bold"
               >
                 Xeni Commerce
               </a>
