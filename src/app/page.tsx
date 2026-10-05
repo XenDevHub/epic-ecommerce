@@ -168,167 +168,212 @@ export default function Home() {
           />
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 md:px-6 pt-32 pb-20 relative z-10">
-          <div className="max-w-3xl">
-            {/* Pill badge */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.06] border border-white/10 backdrop-blur-sm mb-6"
-            >
-              <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-              <span className="text-xs font-medium text-text-secondary">
-                Bangladesh&apos;s First AI-Powered Marketplace
-              </span>
-            </motion.div>
+        <div className="max-w-7xl mx-auto px-4 md:px-6 pt-28 pb-16 md:pt-36 md:pb-24 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+            {/* Left Column (Content) */}
+            <div className="lg:col-span-7">
+              {/* Pill badge */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.06] border border-white/10 backdrop-blur-sm mb-6"
+              >
+                <span className="w-2.5 h-2.5 rounded-full bg-accent animate-pulse" />
+                <span className="text-xs font-semibold text-text-secondary">
+                  Bangladesh&apos;s First AI-Powered Marketplace
+                </span>
+              </motion.div>
 
-            {/* Heading */}
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-bold leading-[1.1] mb-6"
-            >
-              Shop{" "}
-              <span className="gradient-text">Smarter</span>
-              <br />
-              <span className="text-text-primary">Not Harder</span>
-            </motion.h1>
+              {/* Heading */}
+              <motion.h1
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-bold leading-[1.1] mb-6"
+              >
+                Shop{" "}
+                <span className="gradient-text">Smarter</span>
+                <br />
+                <span className="text-text-primary">Not Harder</span>
+              </motion.h1>
 
-            {/* Subtitle */}
-            <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-base md:text-lg text-text-secondary max-w-xl mb-8 leading-relaxed"
-            >
-              Discover curated products from thousands of sellers. Get
-              personalized recommendations, explore unique shops, and enjoy a
-              premium shopping experience — all for{" "}
-              <span className="text-accent font-semibold">free</span>.
-            </motion.p>
+              {/* Subtitle */}
+              <motion.p
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="text-base md:text-lg text-text-secondary max-w-xl mb-8 leading-relaxed"
+              >
+                Discover curated products from thousands of local sellers. Get
+                personalized recommendations, explore unique shops, and enjoy a
+                premium shopping experience — all for{" "}
+                <span className="text-accent font-semibold">free</span>.
+              </motion.p>
 
-            {/* CTA Buttons */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="flex flex-wrap gap-3"
-            >
-              <Link href="/products">
-                <Button variant="primary" size="lg" className="group">
-                  <ShoppingBag size={18} />
-                  Start Shopping
-                  <ArrowRight
-                    size={16}
-                    className="group-hover:translate-x-1 transition-transform"
-                  />
-                </Button>
-              </Link>
-              <Link href="https://xeni.co" target="_blank">
-                <Button variant="secondary" size="lg" className="group">
-                  <Sparkles size={18} className="text-primary-light" />
-                  Open Your Shop
-                  <ArrowRight
-                    size={16}
-                    className="opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all"
-                  />
-                </Button>
-              </Link>
-            </motion.div>
+              {/* CTA Buttons */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="flex flex-wrap gap-3.5"
+              >
+                <Link href="/products">
+                  <Button variant="primary" size="lg" className="group">
+                    <ShoppingBag size={18} />
+                    Start Shopping
+                    <ArrowRight
+                      size={16}
+                      className="group-hover:translate-x-1 transition-transform"
+                    />
+                  </Button>
+                </Link>
+                <Link href="https://xeni.co" target="_blank">
+                  <Button variant="secondary" size="lg" className="group">
+                    <Sparkles size={18} className="text-primary-light" />
+                    Open Your Shop
+                    <ArrowRight
+                      size={16}
+                      className="opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all"
+                    />
+                  </Button>
+                </Link>
+              </motion.div>
 
-            {/* Stats */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.6, duration: 0.5 }}
-              className="flex flex-wrap gap-8 mt-12"
-            >
-              {[
-                { value: "10K+", label: "Products" },
-                { value: "500+", label: "Sellers" },
-                { value: "50K+", label: "Happy Customers" },
-                { value: "4.8★", label: "Average Rating" },
-              ].map((stat) => (
-                <div key={stat.label}>
-                  <div className="text-xl md:text-2xl font-display font-bold gradient-text-primary">
-                    {stat.value}
+              {/* Stats */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.6, duration: 0.5 }}
+                className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-8 mt-12 pt-8 border-t border-white/5"
+              >
+                {[
+                  { value: "10K+", label: "Products" },
+                  { value: "500+", label: "Verified Sellers" },
+                  { value: "50K+", label: "Happy Shoppers" },
+                  { value: "4.8★", label: "Store Rating" },
+                ].map((stat) => (
+                  <div key={stat.label}>
+                    <div className="text-xl md:text-2xl font-display font-bold gradient-text-primary">
+                      {stat.value}
+                    </div>
+                    <div className="text-xs text-text-muted mt-0.5 font-medium">
+                      {stat.label}
+                    </div>
                   </div>
-                  <div className="text-xs text-text-muted mt-0.5">
-                    {stat.label}
+                ))}
+              </motion.div>
+            </div>
+
+            {/* Right Column (Glassmorphic Showcase Widget) */}
+            <div className="lg:col-span-5 relative flex justify-center lg:justify-end mt-8 lg:mt-0">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ delay: 0.3, duration: 0.7 }}
+                className="relative w-full max-w-md"
+              >
+                {/* Glow Backdrop behind Showcase */}
+                <div className="absolute -inset-4 bg-gradient-to-r from-primary/30 to-accent/30 rounded-3xl blur-2xl opacity-60" />
+
+                {/* Main Hero Card */}
+                <div className="relative p-6 rounded-3xl bg-bg-card/80 backdrop-blur-2xl border border-white/10 shadow-2xl overflow-hidden">
+                  {/* Top Badge */}
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent/15 border border-accent/30 text-xs font-semibold text-accent">
+                      <Zap size={13} /> Trending Deal
+                    </span>
+                    <span className="text-xs text-text-muted">Live Stock</span>
+                  </div>
+
+                  {/* Main Product Image Container */}
+                  <div className="w-full h-56 rounded-2xl bg-gradient-to-br from-primary/20 via-white/5 to-accent/20 flex items-center justify-center text-6xl relative overflow-hidden group">
+                    <motion.div
+                      animate={{ y: [-6, 6, -6] }}
+                      transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                    >
+                      🎧
+                    </motion.div>
+                    
+                    {/* Floating rating badge */}
+                    <div className="absolute top-3 right-3 px-3 py-1 rounded-xl bg-bg-primary/80 backdrop-blur-md border border-white/10 flex items-center gap-1.5">
+                      <StarRating rating={4.9} size={12} />
+                      <span className="text-xs font-bold text-text-primary">4.9</span>
+                    </div>
+                  </div>
+
+                  {/* Product Details */}
+                  <div className="mt-5">
+                    <div className="flex items-start justify-between gap-2 mb-1">
+                      <h3 className="text-lg font-bold text-text-primary">
+                        Wireless Earbuds Pro Max
+                      </h3>
+                      <span className="px-2 py-0.5 rounded-md bg-accent-2/20 text-accent-2 text-xs font-bold shrink-0">
+                        -40%
+                      </span>
+                    </div>
+                    <p className="text-xs text-text-muted mb-4">
+                      Active Noise Cancellation • 32h Battery • Spatial Audio
+                    </p>
+
+                    <div className="flex items-center justify-between pt-3 border-t border-white/5">
+                      <div>
+                        <span className="text-xs text-text-muted block line-through">
+                          ৳5,999
+                        </span>
+                        <span className="text-xl font-bold text-primary-light">
+                          ৳3,499
+                        </span>
+                      </div>
+
+                      <Link href="/products/1">
+                        <Button variant="primary" size="sm">
+                          View Product
+                        </Button>
+                      </Link>
+                    </div>
                   </div>
                 </div>
-              ))}
-            </motion.div>
+
+                {/* Floating Extra Micro Card 1 (Bottom Left) */}
+                <motion.div
+                  animate={{ y: [6, -6, 6] }}
+                  transition={{
+                    duration: 3.5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 0.5,
+                  }}
+                  className="hidden sm:flex items-center gap-3 p-3.5 rounded-2xl bg-bg-primary/90 backdrop-blur-xl border border-white/10 shadow-xl absolute -bottom-6 -left-8 w-52 z-20"
+                >
+                  <div className="w-10 h-10 rounded-xl bg-accent-2/20 flex items-center justify-center text-xl shrink-0">
+                    🛍️
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold text-text-primary">
+                      Fast Delivery
+                    </p>
+                    <p className="text-[11px] text-text-muted">Inside Dhaka 24h</p>
+                  </div>
+                </motion.div>
+
+                {/* Floating Extra Micro Card 2 (Top Right) */}
+                <motion.div
+                  animate={{ y: [-5, 5, -5] }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 1,
+                  }}
+                  className="hidden sm:flex items-center gap-2 px-3.5 py-2 rounded-xl bg-accent/15 border border-accent/30 backdrop-blur-xl absolute -top-5 -right-5 z-20"
+                >
+                  <Sparkles size={14} className="text-accent animate-spin" style={{ animationDuration: "6s" }} />
+                  <span className="text-xs font-bold text-accent">AI Recommended</span>
+                </motion.div>
+              </motion.div>
+            </div>
           </div>
-        </div>
-
-        {/* Hero floating cards (decorative) */}
-        <div className="hidden lg:block absolute right-12 top-1/2 -translate-y-1/2">
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.4, duration: 0.8 }}
-            className="relative"
-          >
-            {/* Floating product card 1 */}
-            <motion.div
-              animate={{ y: [-8, 8, -8] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="w-56 p-4 rounded-2xl bg-white/[0.04] backdrop-blur-xl border border-white/10 shadow-2xl"
-            >
-              <div className="w-full h-36 rounded-xl bg-gradient-to-br from-primary/20 to-accent/20 mb-3 flex items-center justify-center text-4xl">
-                🎧
-              </div>
-              <p className="text-sm font-semibold text-text-primary">
-                Wireless Earbuds Pro
-              </p>
-              <div className="flex items-center justify-between mt-2">
-                <span className="text-primary-light font-bold text-sm">
-                  ৳3,499
-                </span>
-                <StarRating rating={4.8} size={10} />
-              </div>
-            </motion.div>
-
-            {/* Floating product card 2 */}
-            <motion.div
-              animate={{ y: [6, -6, 6] }}
-              transition={{
-                duration: 3.5,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: 0.5,
-              }}
-              className="w-44 p-3 rounded-2xl bg-white/[0.04] backdrop-blur-xl border border-white/10 shadow-2xl absolute -left-24 top-20"
-            >
-              <div className="w-full h-24 rounded-lg bg-gradient-to-br from-accent-2/20 to-pink-500/20 mb-2 flex items-center justify-center text-2xl">
-                👗
-              </div>
-              <p className="text-xs font-semibold text-text-primary">
-                Summer Collection
-              </p>
-              <span className="text-accent text-xs font-bold">30% OFF</span>
-            </motion.div>
-
-            {/* Notification bubble */}
-            <motion.div
-              animate={{ y: [-4, 4, -4] }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: 1,
-              }}
-              className="absolute -left-16 bottom-8 px-4 py-2.5 rounded-xl bg-accent/15 border border-accent/30 backdrop-blur-xl"
-            >
-              <p className="text-xs text-accent font-semibold flex items-center gap-1.5">
-                <Zap size={12} />
-                12 orders in last hour
-              </p>
-            </motion.div>
-          </motion.div>
         </div>
       </section>
 
