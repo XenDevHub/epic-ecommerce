@@ -2,14 +2,14 @@
 
 import Link from "next/link";
 import {
-  Facebook,
-  Instagram,
-  Youtube,
   Mail,
   Phone,
   MapPin,
   Sparkles,
   ArrowUpRight,
+  Globe,
+  Share2,
+  MessageCircle,
 } from "lucide-react";
 
 const footerLinks = {
@@ -97,13 +97,14 @@ export default function Footer() {
               </p>
               <div className="flex gap-2">
                 {[
-                  { icon: Facebook, href: "#" },
-                  { icon: Instagram, href: "#" },
-                  { icon: Youtube, href: "#" },
-                ].map(({ icon: Icon, href }, i) => (
+                  { icon: Globe, href: "#", title: "Website" },
+                  { icon: MessageCircle, href: "#", title: "Community" },
+                  { icon: Share2, href: "#", title: "Share" },
+                ].map(({ icon: Icon, href, title }, i) => (
                   <a
                     key={i}
                     href={href}
+                    title={title}
                     className="w-9 h-9 rounded-lg bg-white/5 hover:bg-primary/15 border border-white/5 hover:border-primary/30 flex items-center justify-center text-text-muted hover:text-primary-light transition-all"
                   >
                     <Icon size={16} />
