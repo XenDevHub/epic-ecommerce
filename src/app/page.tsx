@@ -1,880 +1,694 @@
 "use client";
 
-import { motion } from "framer-motion";
-import {
-  ArrowRight,
-  ShoppingBag,
-  Sparkles,
-  TrendingUp,
-  Star,
-  Zap,
-  Gift,
-  Shield,
-  Truck,
-  HeadphonesIcon,
-  ChevronRight,
-  Heart,
-  Eye,
-} from "lucide-react";
+import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
-import Button from "@/components/ui/Button";
-import StarRating from "@/components/ui/StarRating";
-import { formatPrice } from "@/lib/utils";
+import { useCartStore } from "@/stores/cartStore";
+import { useUIStore } from "@/stores/uiStore";
+import { useProducts } from "@/hooks/useApi";
+import type { PublicProduct } from "@/types/api";
+import type { Product } from "@/types";
 
-// ── Mock Data (replace with API calls later) ──
-const featuredProducts = [
+interface DropItem {
+  id: string;
+  name: string;
+  category: string;
+  price: number;
+  stock: string;
+  image: string;
+}
+
+const FEATURED_DROPS: DropItem[] = [
   {
-    id: "1",
-    name: "Premium Wireless Earbuds Pro",
-    price: 3499,
-    originalPrice: 5999,
-    image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=600&auto=format&fit=crop&q=80",
-    rating: 4.8,
-    reviews: 234,
-    badge: "Best Seller",
-    badgeColor: "from-amber-500 to-orange-500",
+    id: "phantom-rgb-keyboard",
+    name: "Phantom RGB 75% Keyboard",
+    category: "Tech Hub",
+    price: 3290,
+    stock: "4 units in stock • Banani Hub",
+    image:
+      "https://lh3.googleusercontent.com/aida-public/AB6AXuAElGnxnOAPdSE-u8zAk3VBj3ubvdrG9tlgnovYQ3wTKw0BUvXfkWT7qXhSSvNJ2Av8t5jk1VEJUnJ1L6Vc0cPW_J7aWN4v3rQ8hYIihtDsuh2SAe1h_AWRk1PCr0fAazgP03gMp-WThMAsaZrnrOmQ1x0AiH3C0ljCrWXUD6mVLds-AhHyx1nhS5PS8atlSO6roQn-4nFhFegkbsDHfJACxguUohhutJqzt6urmxpJdrLsXi8gqg8qcQ",
   },
   {
-    id: "2",
-    name: "Designer Leather Crossbody Bag",
-    price: 2199,
-    originalPrice: 3500,
-    image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=600&auto=format&fit=crop&q=80",
-    rating: 4.6,
-    reviews: 89,
-    badge: "Trending",
-    badgeColor: "from-primary to-primary-light",
+    id: "heritage-tangail-saree",
+    name: "Heritage Tangail Cotton Saree",
+    category: "Heritage Textiles",
+    price: 2450,
+    stock: "7 units in stock • Tangail Studio",
+    image:
+      "https://lh3.googleusercontent.com/aida-public/AB6AXuCWIT868IO6r4sSPeZmxt3egbO-zl5Lk1ZzPNIuxOBnGDX3F3RCpAeUAeVJMqiBOE1tyj8aU80KfcG9JGY-YFYI_u-sbX77couLzG9LW4Myb6vwZMSzAttaJybsXU8sXEuwVJXLCrFpE78l3eHROZ8KlTRqEQi-umUUrGscqpL1TzX3-3BnyI5ggMjtfDR4JH2CKHDJDnD50e6mBgOlMN4r3YEdEn3MHob2DlJMvB7aaVT2sj56FsiGPg",
   },
   {
-    id: "3",
-    name: "Organic Skincare Gift Set",
-    price: 1599,
-    originalPrice: 2400,
-    image: "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=600&auto=format&fit=crop&q=80",
-    rating: 4.9,
-    reviews: 156,
-    badge: "-33%",
-    badgeColor: "from-accent to-emerald-400",
+    id: "voltprime-65w-charger",
+    name: "VoltPrime 65W GaN Charger",
+    category: "Under ৳২,০০০",
+    price: 1850,
+    stock: "18 units in stock • Dhanmondi",
+    image:
+      "https://lh3.googleusercontent.com/aida-public/AB6AXuA-TzBYEprnASzpC632ZDWA8E8eyOoTxDUk0zgWqt_I6QUM_9eMw0dhZlRoWg5013T675TTGznB6BUIJylGctG9xASxxNbQGrl_gEF3bU3UgxABTMYGQSlek_lHnAgUtR7CsndPIiJ885CYUJ4Ta1iPoGTwChPbHXzx7b8Xjx9UUbGlTY2gsFefEFsUxapjZQb86xoI8hLiplFl44b1YRKqbbF9ehogbEBBMTXtqVszDkwqwhf4BTFc4w",
   },
   {
-    id: "4",
-    name: "Smart Fitness Watch Ultra",
-    price: 4299,
-    originalPrice: 6500,
-    image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80",
-    rating: 4.7,
-    reviews: 312,
-    badge: "Hot Deal",
-    badgeColor: "from-accent-2 to-pink-400",
-  },
-  {
-    id: "5",
-    name: "Handcrafted Traditional Fashion Saree",
-    price: 5800,
-    originalPrice: 8000,
-    image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=600&auto=format&fit=crop&q=80",
-    rating: 4.9,
-    reviews: 67,
-    badge: "Exclusive",
-    badgeColor: "from-violet-500 to-purple-500",
-  },
-  {
-    id: "6",
-    name: "Portable Bluetooth Speaker X",
-    price: 1899,
-    originalPrice: 2999,
-    image: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=600&auto=format&fit=crop&q=80",
-    rating: 4.5,
-    reviews: 198,
-    badge: "-37%",
-    badgeColor: "from-accent to-emerald-400",
-  },
-  {
-    id: "7",
-    name: "Classic Aviator Sunglasses",
-    price: 999,
-    originalPrice: 1800,
-    image: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=600&auto=format&fit=crop&q=80",
-    rating: 4.4,
-    reviews: 445,
-    badge: "Popular",
-    badgeColor: "from-amber-500 to-orange-500",
-  },
-  {
-    id: "8",
-    name: "Premium Cotton Polo Shirt",
-    price: 1299,
-    originalPrice: 1999,
-    image: "https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=600&auto=format&fit=crop&q=80",
-    rating: 4.6,
-    reviews: 321,
-    badge: "New",
-    badgeColor: "from-primary to-primary-light",
+    id: "pure-centella-ampoule",
+    name: "Pure Centella 100ml Ampoule",
+    category: "Under ৳২,০০০",
+    price: 1650,
+    stock: "9 units in stock • Uttara Hub",
+    image:
+      "https://lh3.googleusercontent.com/aida-public/AB6AXuDasgckhLJOGXZ88qG2h4cToX9bq68Y2YQHJFW1l5HxoQIbMGX0a-eg7u12jZNJlQZh-b71l9aikHFuV3fdr78isaq9boQ8VltqUh1r3dNWhT3W6DT6sFPccQLm1b0i7iWJ4PKdPAvOWWcMNCsn6BRNLL9RG2_c-GRIIcDOTHSDJLpQY0Kh0SjuhEwQvKxE04oz-f9vD0RWTazgUzl7TjESp580ru_pbcI9xFH_jBwfkNNYe7SQ6MxzcQ",
   },
 ];
-
-const categories = [
-  { name: "Fashion", emoji: "👗", href: "/categories/fashion", count: "2.4k+", gradient: "from-pink-500/20 to-rose-500/20", border: "border-pink-500/20" },
-  { name: "Electronics", emoji: "📱", href: "/categories/electronics", count: "1.8k+", gradient: "from-blue-500/20 to-cyan-500/20", border: "border-blue-500/20" },
-  { name: "Beauty", emoji: "💄", href: "/categories/beauty", count: "960+", gradient: "from-purple-500/20 to-fuchsia-500/20", border: "border-purple-500/20" },
-  { name: "Home", emoji: "🏠", href: "/categories/home-living", count: "1.2k+", gradient: "from-amber-500/20 to-yellow-500/20", border: "border-amber-500/20" },
-  { name: "Lifestyle", emoji: "✨", href: "/categories/lifestyle", count: "780+", gradient: "from-emerald-500/20 to-teal-500/20", border: "border-emerald-500/20" },
-  { name: "Food", emoji: "🍕", href: "/categories/food", count: "540+", gradient: "from-orange-500/20 to-red-500/20", border: "border-orange-500/20" },
-];
-
-const reviews = [
-  { name: "Fatima R.", rating: 5, comment: "Best shopping experience in Bangladesh! The quality of products is amazing and delivery was super fast.", avatar: "F", product: "Wireless Earbuds" },
-  { name: "Tanvir A.", rating: 5, comment: "Love the personalized recommendations. Found exactly what I was looking for within minutes.", avatar: "T", product: "Fitness Watch" },
-  { name: "Nusrat J.", rating: 4, comment: "Great selection of local and international brands. The seller storefronts are beautifully designed.", avatar: "N", product: "Jamdani Saree" },
-];
-
-// ── Animation Variants ──
-const fadeInUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.1, duration: 0.5, ease: "easeOut" },
-  }),
-};
-
-const staggerContainer = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.08 } },
-};
 
 export default function Home() {
+  const [selectedCategory, setSelectedCategory] = useState("All Curations");
+  const { addItem } = useCartStore();
+  const { openCart } = useUIStore();
+
+  // Fetch real products from Xeni 2.0
+  const { data: productsData, isLoading: isLoadingProducts } = useProducts({
+    per_page: 8,
+    sort: "popular",
+  });
+
+  const apiProducts = productsData?.data ?? [];
+
+  const toCartProduct = (p: PublicProduct): Product => ({
+    id: p.id,
+    shop_id: p.shop_id,
+    name: p.name,
+    name_bn: p.name_bn,
+    description: p.description,
+    price: p.price,
+    initial_stock: p.initial_stock,
+    current_stock: p.current_stock,
+    low_stock_threshold: p.low_stock_threshold,
+    is_out_of_stock: p.is_out_of_stock,
+    is_active: p.is_active,
+    has_variants: p.has_variants,
+    images: p.images,
+    created_at: p.created_at,
+    updated_at: p.updated_at,
+  });
+
+  const handleAddToCart = (product: PublicProduct) => {
+    addItem(toCartProduct(product));
+    openCart();
+  };
+
+  const handleCheckoutCuratedPair = () => {
+    addItem({
+      id: "emerald-silk-kurti",
+      shop_id: "shop-anokhi",
+      name: "Emerald Silk Kurti",
+      price: 3200,
+      initial_stock: 30,
+      current_stock: 12,
+      low_stock_threshold: 3,
+      is_out_of_stock: false,
+      is_active: true,
+      has_variants: false,
+      images: [
+        "https://lh3.googleusercontent.com/aida-public/AB6AXuDESzocvPgJ0KX3GKZ9tW4itbCMeNHwS5dwVdkgzcj6Uif9PReuZM3cZuJuNhvL5-IVbsO09Hv7ZKj-fYFTnQ0v0Dv6BA1XOnofv7Nz8z4fLIQfghsUB6wYbg6aM7PCxoza8ICfAE9I8_3eyA206SEfYLjJxwOp1s4d_05vRlHAAK6_r_G74SLQUxxsJ0pB3DyjD41Ny1tZkcOh3jPZBcTBXMgVAbPjkhpYvN-kqcbj66TvcmAhKzouTA",
+      ],
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    });
+    addItem({
+      id: "kundan-choker-earring",
+      shop_id: "shop-zaveri",
+      name: "Kundan Choker & Earring",
+      price: 1500,
+      initial_stock: 25,
+      current_stock: 8,
+      low_stock_threshold: 2,
+      is_out_of_stock: false,
+      is_active: true,
+      has_variants: false,
+      images: [
+        "https://lh3.googleusercontent.com/aida-public/AB6AXuDunsquC_L9U1RPrYDOqMr1RbPqljKwP2RY7QfMmcD-C-s3z8d9zy0ZdebXzPSKVhmW1S3VkuSiwl9lwJ0O445vsOuXeQ88hC9buq9ZHqNCVw2W27ku_jbiZefpFpWN2HLmhrN7n92IpCoiKr96t-5BBayFaACptLzJFbXNW7j-VSxlB01WPZWFV2iW_Nro_dyJbVsxQmhtVvT09aCVk8AraJjjhD-cQFQD0guPcS7hA2GjwQ0JKunZcw",
+      ],
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    });
+    openCart();
+  };
+
   return (
-    <div className="relative">
-      {/* ═══════════════════════════════════════════ */}
-      {/* HERO SECTION */}
-      {/* ═══════════════════════════════════════════ */}
-      <section className="relative min-h-[90vh] flex items-center overflow-hidden">
-        {/* Background Effects */}
-        <div className="absolute inset-0">
-          {/* Gradient orbs */}
-          <div className="absolute top-20 left-[10%] w-[500px] h-[500px] bg-primary/20 rounded-full blur-[120px] animate-pulse" />
-          <div className="absolute bottom-20 right-[10%] w-[400px] h-[400px] bg-accent/15 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: "1s" }} />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent-2/10 rounded-full blur-[140px]" />
-          
-          {/* Grid pattern */}
-          <div
-            className="absolute inset-0 opacity-[0.03]"
-            style={{
-              backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
-              backgroundSize: "60px 60px",
-            }}
-          />
-        </div>
+    <main className="w-full bg-background relative min-h-screen pt-24 text-on-surface">
+      <div className="flex flex-col w-full">
+        {/* Editorial Hero Section */}
+        <section className="relative w-full overflow-hidden pt-6 pb-16">
+          {/* Subtle Ambient Glows */}
+          <div className="absolute top-0 left-1/3 w-[520px] h-[520px] bg-primary/10 rounded-full blur-[140px] pointer-events-none" />
+          <div className="absolute -top-12 right-12 w-[380px] h-[380px] bg-secondary/10 rounded-full blur-[128px] pointer-events-none" />
 
-        <div className="max-w-7xl mx-auto px-4 md:px-6 pt-28 pb-16 md:pt-36 md:pb-24 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-            {/* Left Column (Content) */}
-            <div className="lg:col-span-7">
-              {/* Pill badge */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.06] border border-white/10 backdrop-blur-sm mb-6"
-              >
-                <span className="w-2.5 h-2.5 rounded-full bg-accent animate-pulse" />
-                <span className="text-xs font-semibold text-text-secondary">
-                  Bangladesh&apos;s First AI-Powered Marketplace
-                </span>
-              </motion.div>
+          <div className="max-w-7xl mx-auto px-6 relative z-10">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+              {/* Left Column: Headlines & Callouts */}
+              <div className="lg:col-span-7 space-y-6">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface-container-low text-xs text-on-surface-variant shadow-sm">
+                  <span className="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse" />
+                  <span>Dhaka Live Mesh • Verified Escrow Commerce</span>
+                </div>
 
-              {/* Heading */}
-              <motion.h1
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-bold leading-[1.1] mb-6"
-              >
-                Shop{" "}
-                <span className="gradient-text">Smarter</span>
-                <br />
-                <span className="text-text-primary">Not Harder</span>
-              </motion.h1>
+                <h1 className="font-display-lg text-4xl sm:text-5xl lg:text-6xl text-on-surface font-extrabold tracking-tight leading-tight">
+                  বাংলাদেশের শীর্ষস্থানীয়{" "}
+                  <span className="bg-gradient-to-r from-primary via-tertiary to-secondary bg-clip-text text-transparent">
+                    স্মার্ট মার্কেটপ্লেস
+                  </span>
+                </h1>
 
-              {/* Subtitle */}
-              <motion.p
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-base md:text-lg text-text-secondary max-w-xl mb-8 leading-relaxed"
-              >
-                Discover curated products from thousands of local sellers. Get
-                personalized recommendations, explore unique shops, and enjoy a
-                premium shopping experience — all for{" "}
-                <span className="text-accent font-semibold">free</span>.
-              </motion.p>
+                <p className="font-body-lg text-sm sm:text-base text-on-surface-variant max-w-xl leading-relaxed">
+                  Experience authentic Bangladeshi luxury and high-performance
+                  technology. Guaranteed 2-Hour Dhaka Express handoff, instant
+                  decentralized escrow, and intelligent AI-matched bundles.
+                </p>
 
-              {/* CTA Buttons */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="flex flex-wrap gap-3.5"
-              >
-                <Link href="/products">
-                  <Button variant="primary" size="lg" className="group">
-                    <ShoppingBag size={18} />
-                    Start Shopping
-                    <ArrowRight
-                      size={16}
-                      className="group-hover:translate-x-1 transition-transform"
-                    />
-                  </Button>
-                </Link>
-                <Link href="https://xeni.co" target="_blank">
-                  <Button variant="secondary" size="lg" className="group">
-                    <Sparkles size={18} className="text-primary-light" />
-                    Open Your Shop
-                    <ArrowRight
-                      size={16}
-                      className="opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all"
-                    />
-                  </Button>
-                </Link>
-              </motion.div>
-
-              {/* Stats */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.6, duration: 0.5 }}
-                className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-8 mt-12 pt-8 border-t border-white/5"
-              >
-                {[
-                  { value: "10K+", label: "Products" },
-                  { value: "500+", label: "Verified Sellers" },
-                  { value: "50K+", label: "Happy Shoppers" },
-                  { value: "4.8★", label: "Store Rating" },
-                ].map((stat) => (
-                  <div key={stat.label}>
-                    <div className="text-xl md:text-2xl font-display font-bold gradient-text-primary">
-                      {stat.value}
-                    </div>
-                    <div className="text-xs text-text-muted mt-0.5 font-medium">
-                      {stat.label}
-                    </div>
-                  </div>
-                ))}
-              </motion.div>
-            </div>
-
-            {/* Right Column (Glassmorphic Showcase Widget) */}
-            <div className="lg:col-span-5 relative flex justify-center lg:justify-end mt-8 lg:mt-0">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                transition={{ delay: 0.3, duration: 0.7 }}
-                className="relative w-full max-w-md"
-              >
-                {/* Glow Backdrop behind Showcase */}
-                <div className="absolute -inset-4 bg-gradient-to-r from-primary/30 to-accent/30 rounded-3xl blur-2xl opacity-60" />
-
-                {/* Main Hero Card */}
-                <div className="relative p-6 rounded-3xl bg-bg-card/80 backdrop-blur-2xl border border-white/10 shadow-2xl overflow-hidden">
-                  {/* Top Badge */}
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent/15 border border-accent/30 text-xs font-semibold text-accent">
-                      <Zap size={13} /> Trending Deal
+                <div className="flex flex-wrap items-center gap-4 pt-2">
+                  <a
+                    href="#drops"
+                    className="px-8 py-3.5 rounded-full bg-primary text-on-primary font-headline-sm text-sm font-bold shadow-xl hover:brightness-110 active:scale-95 transition-all flex items-center gap-2 cursor-pointer"
+                  >
+                    <span className="material-symbols-outlined text-lg">
+                      explore
                     </span>
-                    <span className="text-xs text-text-muted">Live Stock</span>
+                    <span>Curated Drops</span>
+                  </a>
+                  <a
+                    href="#gemini-copilot"
+                    className="px-6 py-3.5 rounded-full bg-surface-container-low hover:bg-surface-container-high text-on-surface font-headline-sm text-sm font-semibold transition-all flex items-center gap-2 shadow-md cursor-pointer"
+                  >
+                    <span className="material-symbols-outlined text-tertiary text-lg">
+                      auto_awesome
+                    </span>
+                    <span>Gemini Shopper</span>
+                  </a>
+                </div>
+
+                {/* Key Metrics Strip */}
+                <div className="pt-6 flex items-center gap-8 text-xs text-on-surface-variant max-w-lg">
+                  <div>
+                    <span className="block font-headline-sm text-xl text-on-surface font-bold">
+                      18k+
+                    </span>
+                    <span>Orders in Dhaka this week</span>
                   </div>
-
-                  {/* Main Product Image Container */}
-                  <div className="w-full h-56 rounded-2xl bg-gradient-to-br from-primary/20 via-white/5 to-accent/20 flex items-center justify-center text-6xl relative overflow-hidden group">
-                    <motion.div
-                      animate={{ y: [-6, 6, -6] }}
-                      transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                    >
-                      🎧
-                    </motion.div>
-                    
-                    {/* Floating rating badge */}
-                    <div className="absolute top-3 right-3 px-3 py-1 rounded-xl bg-bg-primary/80 backdrop-blur-md border border-white/10 flex items-center gap-1.5">
-                      <StarRating rating={4.9} size={12} />
-                      <span className="text-xs font-bold text-text-primary">4.9</span>
-                    </div>
+                  <div className="h-6 w-px bg-surface-container-highest" />
+                  <div>
+                    <span className="block font-headline-sm text-xl text-secondary font-bold">
+                      0.4s
+                    </span>
+                    <span>Live Inventory Sync</span>
                   </div>
+                  <div className="h-6 w-px bg-surface-container-highest" />
+                  <div>
+                    <span className="block font-headline-sm text-xl text-primary font-bold">
+                      100%
+                    </span>
+                    <span>Escrow Protected</span>
+                  </div>
+                </div>
+              </div>
 
-                  {/* Product Details */}
-                  <div className="mt-5">
-                    <div className="flex items-start justify-between gap-2 mb-1">
-                      <h3 className="text-lg font-bold text-text-primary">
-                        Wireless Earbuds Pro Max
-                      </h3>
-                      <span className="px-2 py-0.5 rounded-md bg-accent-2/20 text-accent-2 text-xs font-bold shrink-0">
-                        -40%
-                      </span>
-                    </div>
-                    <p className="text-xs text-text-muted mb-4">
-                      Active Noise Cancellation • 32h Battery • Spatial Audio
-                    </p>
-
-                    <div className="flex items-center justify-between pt-3 border-t border-white/5">
-                      <div>
-                        <span className="text-xs text-text-muted block line-through">
-                          ৳5,999
-                        </span>
-                        <span className="text-xl font-bold text-primary-light">
-                          ৳3,499
+              {/* Right Column: Minimal AI Copilot Micro Card */}
+              <div className="lg:col-span-5 relative" id="gemini-copilot">
+                <div className="rounded-3xl bg-surface-container-low/95 backdrop-blur-xl p-7 shadow-2xl space-y-6">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-2xl bg-primary-container text-on-primary-container flex items-center justify-center shadow-md">
+                        <span className="material-symbols-outlined text-xl">
+                          auto_awesome
                         </span>
                       </div>
+                      <div>
+                        <h3 className="font-headline-sm text-base text-on-surface font-bold">
+                          Gemini Copilot
+                        </h3>
+                        <span className="text-[11px] text-secondary font-medium">
+                          Dhaka Style &amp; Budget Matcher
+                        </span>
+                      </div>
+                    </div>
+                    <span className="text-[11px] px-2.5 py-1 rounded-full bg-surface-container-high text-tertiary font-semibold uppercase tracking-wider">
+                      Active
+                    </span>
+                  </div>
 
-                      <Link href="/products/1">
-                        <Button variant="primary" size="sm">
-                          View Product
-                        </Button>
+                  {/* Bengali Prompt Box */}
+                  <div className="p-4 rounded-2xl bg-surface-container-lowest/80 space-y-1.5 shadow-inner">
+                    <span className="text-[10px] text-on-surface-variant uppercase tracking-wider font-semibold block">
+                      Bengali Voice Query
+                    </span>
+                    <p className="font-body-md text-xs sm:text-sm text-on-surface italic font-normal leading-relaxed">
+                      &ldquo;আমার বোনের জন্মদিনের জন্য ৫,০০০ টাকার মধ্যে গর্জিয়াস
+                      ড্রেস ও ম্যাচিং জুয়েলারি সাজেস্ট করো&rdquo;
+                    </p>
+                  </div>
+
+                  {/* AI Curated Pair */}
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between text-xs text-on-surface-variant">
+                      <span className="font-medium">AI Curated Pair</span>
+                      <span className="text-secondary font-semibold">
+                        Saved ৳৩০০ Surplus
+                      </span>
+                    </div>
+
+                    <div className="flex items-center justify-between p-3 rounded-xl bg-surface-container shadow-sm">
+                      <div className="flex items-center gap-3">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          className="w-11 h-11 rounded-lg object-cover"
+                          alt="Emerald Silk Kurti"
+                          src="https://lh3.googleusercontent.com/aida-public/AB6AXuDESzocvPgJ0KX3GKZ9tW4itbCMeNHwS5dwVdkgzcj6Uif9PReuZM3cZuJuNhvL5-IVbsO09Hv7ZKj-fYFTnQ0v0Dv6BA1XOnofv7Nz8z4fLIQfghsUB6wYbg6aM7PCxoza8ICfAE9I8_3eyA206SEfYLjJxwOp1s4d_05vRlHAAK6_r_G74SLQUxxsJ0pB3DyjD41Ny1tZkcOh3jPZBcTBXMgVAbPjkhpYvN-kqcbj66TvcmAhKzouTA"
+                        />
+                        <div>
+                          <h4 className="text-xs font-semibold text-on-surface truncate max-w-[150px]">
+                            Emerald Silk Kurti
+                          </h4>
+                          <span className="text-[10px] text-on-surface-variant">
+                            Anokhi Studio
+                          </span>
+                        </div>
+                      </div>
+                      <span className="font-label-md text-xs font-bold text-on-surface">
+                        ৳৩,২০০
+                      </span>
+                    </div>
+
+                    <div className="flex items-center justify-between p-3 rounded-xl bg-surface-container shadow-sm">
+                      <div className="flex items-center gap-3">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          className="w-11 h-11 rounded-lg object-cover"
+                          alt="Royal Kundan Choker"
+                          src="https://lh3.googleusercontent.com/aida-public/AB6AXuDunsquC_L9U1RPrYDOqMr1RbPqljKwP2RY7QfMmcD-C-s3z8d9zy0ZdebXzPSKVhmW1S3VkuSiwl9lwJ0O445vsOuXeQ88hC9buq9ZHqNCVw2W27ku_jbiZefpFpWN2HLmhrN7n92IpCoiKr96t-5BBayFaACptLzJFbXNW7j-VSxlB01WPZWFV2iW_Nro_dyJbVsxQmhtVvT09aCVk8AraJjjhD-cQFQD0guPcS7hA2GjwQ0JKunZcw"
+                        />
+                        <div>
+                          <h4 className="text-xs font-semibold text-on-surface truncate max-w-[150px]">
+                            Kundan Choker &amp; Earring
+                          </h4>
+                          <span className="text-[10px] text-on-surface-variant">
+                            Zaveri Express BD
+                          </span>
+                        </div>
+                      </div>
+                      <span className="font-label-md text-xs font-bold text-on-surface">
+                        ৳১,৫০০
+                      </span>
+                    </div>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={handleCheckoutCuratedPair}
+                    className="w-full py-3.5 rounded-xl bg-secondary text-on-secondary font-headline-sm text-xs font-bold flex items-center justify-center gap-2 hover:brightness-105 active:scale-95 transition-all shadow-lg"
+                  >
+                    <span className="material-symbols-outlined text-base">
+                      shopping_cart_checkout
+                    </span>
+                    <span>Checkout Curated Pair (৳৪,৭০০)</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Understated Value Bar */}
+        <section className="w-full bg-surface-container-lowest/60 py-6 shadow-inner">
+          <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="flex items-center gap-3">
+              <span className="material-symbols-outlined text-secondary text-2xl">
+                local_shipping
+              </span>
+              <div>
+                <h4 className="text-xs font-bold text-on-surface tracking-wide uppercase">
+                  Hyperlocal 2-Hour Delivery
+                </h4>
+                <p className="text-xs text-on-surface-variant">
+                  Dispatched directly from Dhaka &amp; regional fulfillment hubs.
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="material-symbols-outlined text-primary text-2xl">
+                verified_user
+              </span>
+              <div>
+                <h4 className="text-xs font-bold text-on-surface tracking-wide uppercase">
+                  Xeni Escrow Verification
+                </h4>
+                <p className="text-xs text-on-surface-variant">
+                  Funds protected until delivery verification with instant refund.
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="material-symbols-outlined text-tertiary text-2xl">
+                account_balance_wallet
+              </span>
+              <div>
+                <h4 className="text-xs font-bold text-on-surface tracking-wide uppercase">
+                  bKash &amp; Nagad Direct Settlement
+                </h4>
+                <p className="text-xs text-on-surface-variant">
+                  Instant zero-fee transaction settlement with direct buyer cashback.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Curated Flagship Boutiques */}
+        <section className="max-w-7xl mx-auto px-6 py-16 w-full" id="boutiques">
+          <div className="flex items-end justify-between mb-8">
+            <div>
+              <span className="text-xs font-bold text-primary tracking-widest uppercase">
+                Verified Boutiques
+              </span>
+              <h2 className="font-headline-xl text-2xl sm:text-3xl text-on-surface font-extrabold mt-1">
+                Curated Flagship Studios
+              </h2>
+            </div>
+            <a
+              className="text-xs font-semibold text-on-surface-variant hover:text-on-surface flex items-center gap-1 transition-colors"
+              href="#drops"
+            >
+              <span>View all brand studios</span>
+              <span className="material-symbols-outlined text-sm">
+                arrow_forward
+              </span>
+            </a>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Studio 1: Apex Artisanal */}
+            <div className="group rounded-3xl bg-surface-container-low p-6 transition-all duration-300 shadow-lg hover:shadow-2xl">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-11 h-11 rounded-2xl bg-surface-container-highest flex items-center justify-center font-headline-sm text-sm font-bold text-on-surface shadow-sm">
+                    AX
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-1">
+                      <h3 className="font-headline-sm text-sm font-bold text-on-surface">
+                        Apex Artisanal
+                      </h3>
+                      <span className="material-symbols-outlined text-primary text-xs">
+                        verified
+                      </span>
+                    </div>
+                    <span className="text-[11px] text-on-surface-variant">
+                      Official Flagship • 2-Hr Dispatch
+                    </span>
+                  </div>
+                </div>
+                <span className="text-xs font-bold text-secondary flex items-center gap-0.5">
+                  <span className="material-symbols-outlined text-xs">star</span>
+                  4.9
+                </span>
+              </div>
+              <div className="aspect-[16/9] rounded-2xl overflow-hidden bg-surface-container-lowest mb-4">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  alt="Apex Footwear"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZwR2qdke35-YhmXDncKNWF4Hsp5lXyaDhGGxoXZX4J1TMRVoCx1gVlxA52-G6hoTuNJlMf6tLJA_qnrGjGpt6FtOizUoPvo7tenvfN4XXZwwO9nPwVrYdkbapNIGTmn-_0AWVH4Wm-XvPJdJMdqHgscOEf3ptSuSyWCWLjWx5lh4zKpoT9AwrADMjaz8pulJutH8jAu5fJAT6GFI1Yb4Y4el26FlMbtOZR2WRV7UxxFkzE3KEuVztdw"
+                />
+              </div>
+              <div className="flex items-center justify-between pt-1">
+                <span className="text-xs text-on-surface-variant">
+                  142 Authentic styles
+                </span>
+                <Link
+                  href="/shops/shop-apex-artisanal"
+                  className="px-4 py-2 rounded-full bg-surface-container-high hover:bg-surface-bright text-on-surface text-xs font-semibold transition-colors"
+                >
+                  Explore Boutique
+                </Link>
+              </div>
+            </div>
+
+            {/* Studio 2: Anokhi Handloom */}
+            <div className="group rounded-3xl bg-surface-container-low p-6 transition-all duration-300 shadow-lg hover:shadow-2xl">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-11 h-11 rounded-2xl bg-primary/20 text-primary flex items-center justify-center font-headline-sm text-sm font-bold shadow-sm">
+                    AK
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-1">
+                      <h3 className="font-headline-sm text-sm font-bold text-on-surface">
+                        Anokhi Handloom
+                      </h3>
+                      <span className="material-symbols-outlined text-primary text-xs">
+                        verified
+                      </span>
+                    </div>
+                    <span className="text-[11px] text-on-surface-variant">
+                      Authentic Weavers • Dhaka
+                    </span>
+                  </div>
+                </div>
+                <span className="text-xs font-bold text-secondary flex items-center gap-0.5">
+                  <span className="material-symbols-outlined text-xs">star</span>
+                  4.8
+                </span>
+              </div>
+              <div className="aspect-[16/9] rounded-2xl overflow-hidden bg-surface-container-lowest mb-4">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  alt="Anokhi Jamdani"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2EsvU-4XBMnP0BBVU4vCS0dc8QwDrc_PjoyzL4v32idZQACNFoBZgIvGLNcjaieFwvNKBXcr7FOPcnCWmFk2pFQCgyRAFInyBmWTik-mZJ_6mWUJGlZqmznqQPBe5ZCn0Nhpfrd8yAu2Xpv_cylWt-rKW9M_M5Isouq-85EbNsZFmEWv5v1QWdaDrqvF_cTVyUgxFxWjqsCC7Bh9BXvOuGNI1kGQW-VV42ddzKB4qOs3EFhN77v20HQ"
+                />
+              </div>
+              <div className="flex items-center justify-between pt-1">
+                <span className="text-xs text-on-surface-variant">
+                  86 Handcrafted drops
+                </span>
+                <Link
+                  href="/shops/shop-anokhi-handloom"
+                  className="px-4 py-2 rounded-full bg-surface-container-high hover:bg-surface-bright text-on-surface text-xs font-semibold transition-colors"
+                >
+                  Explore Boutique
+                </Link>
+              </div>
+            </div>
+
+            {/* Studio 3: Pulse Acoustics */}
+            <div className="group rounded-3xl bg-surface-container-low p-6 transition-all duration-300 shadow-lg hover:shadow-2xl">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-11 h-11 rounded-2xl bg-tertiary/20 text-tertiary flex items-center justify-center font-headline-sm text-sm font-bold shadow-sm">
+                    PA
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-1">
+                      <h3 className="font-headline-sm text-sm font-bold text-on-surface">
+                        Pulse Acoustics
+                      </h3>
+                      <span className="material-symbols-outlined text-primary text-xs">
+                        verified
+                      </span>
+                    </div>
+                    <span className="text-[11px] text-on-surface-variant">
+                      Official Hi-Res Audio Importer
+                    </span>
+                  </div>
+                </div>
+                <span className="text-xs font-bold text-secondary flex items-center gap-0.5">
+                  <span className="material-symbols-outlined text-xs">star</span>
+                  4.9
+                </span>
+              </div>
+              <div className="aspect-[16/9] rounded-2xl overflow-hidden bg-surface-container-lowest mb-4">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  alt="Pulse Audio Pro"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuArLaHe7PGVtYzIy4w8MlTUERrmcXK4boooAfqv0KN_krTDzTK-p2zK3AgrlY1q5vKzhL2zsQSARBXGjWf1yW8jgxg0dfws6-lxSMhiB99JEdrtDN2Fo1BfyS-08lpcxyXd0w6RrlzR2kQQUdNbKaI5Uq_gLEPukGvXLI15qS6dsgrr1O3a2VmH39KEKnRVJJ1phrgchS9fsgMXIacXgqbK-mhns5M-Y23fX9QQYElZJ2ybJQHbpSxF2A"
+                />
+              </div>
+              <div className="flex items-center justify-between pt-1">
+                <span className="text-xs text-on-surface-variant">
+                  1-Year Official Warranty
+                </span>
+                <Link
+                  href="/shops/shop-pulse-acoustics"
+                  className="px-4 py-2 rounded-full bg-surface-container-high hover:bg-surface-bright text-on-surface text-xs font-semibold transition-colors"
+                >
+                  Explore Boutique
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Curated Drops & Tech Catalog */}
+        <section className="max-w-7xl mx-auto px-6 py-10 w-full" id="drops">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
+            <div>
+              <span className="text-xs font-bold text-primary tracking-widest uppercase">
+                Curated Catalog
+              </span>
+              <h2 className="font-headline-xl text-2xl sm:text-3xl text-on-surface font-extrabold mt-1">
+                Featured Drops in Bangladesh
+              </h2>
+            </div>
+
+            <div className="flex items-center gap-2 overflow-x-auto pb-1">
+              {[
+                "All Curations",
+                "Tech Hub",
+                "Heritage Textiles",
+                "Under ৳২,০০০",
+              ].map((category) => (
+                <button
+                  key={category}
+                  type="button"
+                  onClick={() => setSelectedCategory(category)}
+                  className={`px-4 py-1.5 rounded-full text-xs font-bold shrink-0 transition-all ${
+                    selectedCategory === category
+                      ? "bg-primary text-on-primary shadow-md"
+                      : "bg-surface-container-low hover:bg-surface-container-high text-on-surface-variant shadow-sm"
+                  }`}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {isLoadingProducts ? (
+              Array.from({ length: 4 }).map((_, i) => (
+                <div
+                  key={i}
+                  className="rounded-3xl bg-surface-container-low p-4 space-y-4 animate-pulse"
+                >
+                  <div className="w-full aspect-square rounded-2xl bg-surface-container-high" />
+                  <div className="h-3 w-3/4 bg-surface-container-high rounded" />
+                  <div className="h-3 w-1/2 bg-surface-container-high rounded" />
+                </div>
+              ))
+            ) : apiProducts.length === 0 ? (
+              /* Fallback: use FEATURED_DROPS if API returns no data */
+              FEATURED_DROPS.map((item) => (
+                <div
+                  key={item.id}
+                  className="group rounded-3xl bg-surface-container-low p-4 flex flex-col justify-between transition-all duration-300 shadow-md hover:shadow-xl"
+                >
+                  <div className="space-y-3">
+                    <Link
+                      href={`/product/${item.id}`}
+                      className="block relative w-full aspect-square rounded-2xl overflow-hidden bg-surface-container-lowest"
+                    >
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        alt={item.name}
+                        src={item.image}
+                      />
+                    </Link>
+                    <div>
+                      <span className="text-[11px] text-on-surface-variant">
+                        {item.stock}
+                      </span>
+                      <Link
+                        href={`/product/${item.id}`}
+                        className="block font-headline-sm text-sm font-bold text-on-surface mt-0.5 line-clamp-1 group-hover:text-primary transition-colors"
+                      >
+                        {item.name}
                       </Link>
                     </div>
                   </div>
+                  <div className="pt-4 flex items-center justify-between">
+                    <span className="font-headline-md text-base font-bold text-on-surface">
+                      ৳{item.price.toLocaleString("en-BD")}
+                    </span>
+                  </div>
                 </div>
+              ))
+            ) : (
+              apiProducts.map((product) => {
+                const image =
+                  product.images?.[0] ||
+                  "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600";
+                const stockText = product.is_out_of_stock
+                  ? "Out of Stock"
+                  : product.current_stock <= product.low_stock_threshold
+                  ? `Only ${product.current_stock} left`
+                  : `${product.current_stock} in stock • ${product.shop_name}`;
 
-                {/* Floating Extra Micro Card 1 (Bottom Left) */}
-                <motion.div
-                  animate={{ y: [6, -6, 6] }}
-                  transition={{
-                    duration: 3.5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: 0.5,
-                  }}
-                  className="hidden sm:flex items-center gap-3 p-3.5 rounded-2xl bg-bg-primary/90 backdrop-blur-xl border border-white/10 shadow-xl absolute -bottom-6 -left-8 w-52 z-20"
-                >
-                  <div className="w-10 h-10 rounded-xl bg-accent-2/20 flex items-center justify-center text-xl shrink-0">
-                    🛍️
-                  </div>
-                  <div>
-                    <p className="text-xs font-bold text-text-primary">
-                      Fast Delivery
-                    </p>
-                    <p className="text-[11px] text-text-muted">Inside Dhaka 24h</p>
-                  </div>
-                </motion.div>
-
-                {/* Floating Extra Micro Card 2 (Top Right) */}
-                <motion.div
-                  animate={{ y: [-5, 5, -5] }}
-                  transition={{
-                    duration: 4,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: 1,
-                  }}
-                  className="hidden sm:flex items-center gap-2 px-3.5 py-2 rounded-xl bg-accent/15 border border-accent/30 backdrop-blur-xl absolute -top-5 -right-5 z-20"
-                >
-                  <Sparkles size={14} className="text-accent animate-spin" style={{ animationDuration: "6s" }} />
-                  <span className="text-xs font-bold text-accent">AI Recommended</span>
-                </motion.div>
-              </motion.div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════ */}
-      {/* TRUST BADGES */}
-      {/* ═══════════════════════════════════════════ */}
-      <section className="relative -mt-4 z-10">
-        <div className="max-w-7xl mx-auto px-4 md:px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            {[
-              {
-                icon: Truck,
-                title: "Fast Delivery",
-                desc: "All over Bangladesh",
-                color: "text-accent",
-                bg: "bg-accent/10",
-              },
-              {
-                icon: Shield,
-                title: "Secure Payment",
-                desc: "100% protected",
-                color: "text-primary-light",
-                bg: "bg-primary/10",
-              },
-              {
-                icon: Gift,
-                title: "Daily Deals",
-                desc: "Up to 70% off",
-                color: "text-accent-2",
-                bg: "bg-accent-2/10",
-              },
-              {
-                icon: HeadphonesIcon,
-                title: "24/7 Support",
-                desc: "Always here to help",
-                color: "text-accent-3",
-                bg: "bg-accent-3/10",
-              },
-            ].map(({ icon: Icon, title, desc, color, bg }, i) => (
-              <motion.div
-                key={title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="flex items-center gap-3 p-4 rounded-2xl bg-white/[0.03] backdrop-blur-sm border border-white/5 hover:border-white/10 transition-all group"
-              >
-                <div
-                  className={`w-10 h-10 rounded-xl ${bg} flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform`}
-                >
-                  <Icon size={20} className={color} />
-                </div>
-                <div>
-                  <p className="text-sm font-semibold text-text-primary">
-                    {title}
-                  </p>
-                  <p className="text-[11px] text-text-muted">{desc}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════ */}
-      {/* CATEGORIES */}
-      {/* ═══════════════════════════════════════════ */}
-      <section className="py-16 md:py-20">
-        <div className="max-w-7xl mx-auto px-4 md:px-6">
-          {/* Section Header */}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeInUp}
-            custom={0}
-            className="flex items-end justify-between mb-10"
-          >
-            <div>
-              <span className="text-xs font-semibold text-primary-light uppercase tracking-widest">
-                Browse
-              </span>
-              <h2 className="text-2xl md:text-3xl font-display font-bold text-text-primary mt-1">
-                Shop by Category
-              </h2>
-            </div>
-            <Link
-              href="/categories"
-              className="hidden md:flex items-center gap-1 text-sm text-text-secondary hover:text-primary-light transition-colors group"
-            >
-              View All
-              <ChevronRight
-                size={16}
-                className="group-hover:translate-x-1 transition-transform"
-              />
-            </Link>
-          </motion.div>
-
-          {/* Category Grid */}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={staggerContainer}
-            className="grid grid-cols-3 md:grid-cols-6 gap-3 md:gap-4"
-          >
-            {categories.map((cat, i) => (
-              <motion.div key={cat.name} variants={fadeInUp} custom={i}>
-                <Link
-                  href={cat.href}
-                  className={`flex flex-col items-center gap-3 p-5 md:p-6 rounded-2xl bg-gradient-to-br ${cat.gradient} border ${cat.border} hover:scale-105 hover:shadow-lg transition-all duration-300 group`}
-                >
-                  <span className="text-3xl md:text-4xl group-hover:scale-110 transition-transform">
-                    {cat.emoji}
-                  </span>
-                  <div className="text-center">
-                    <p className="text-sm font-semibold text-text-primary">
-                      {cat.name}
-                    </p>
-                    <p className="text-[11px] text-text-muted mt-0.5">
-                      {cat.count} items
-                    </p>
-                  </div>
-                </Link>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════ */}
-      {/* TRENDING PRODUCTS */}
-      {/* ═══════════════════════════════════════════ */}
-      <section className="py-16 md:py-20 relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/[0.02] via-transparent to-transparent" />
-        <div className="max-w-7xl mx-auto px-4 md:px-6 relative">
-          {/* Section Header */}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeInUp}
-            custom={0}
-            className="flex items-end justify-between mb-10"
-          >
-            <div>
-              <span className="inline-flex items-center gap-1 text-xs font-semibold text-accent-3 uppercase tracking-widest">
-                <TrendingUp size={14} />
-                Trending Now
-              </span>
-              <h2 className="text-2xl md:text-3xl font-display font-bold text-text-primary mt-1">
-                Popular Products
-              </h2>
-            </div>
-            <Link
-              href="/products"
-              className="hidden md:flex items-center gap-1 text-sm text-text-secondary hover:text-primary-light transition-colors group"
-            >
-              See All Products
-              <ChevronRight
-                size={16}
-                className="group-hover:translate-x-1 transition-transform"
-              />
-            </Link>
-          </motion.div>
-
-          {/* Product Grid */}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={staggerContainer}
-            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-5"
-          >
-            {featuredProducts.map((product, i) => (
-              <motion.div key={product.id} variants={fadeInUp} custom={i}>
-                <Link
-                  href={`/products/${product.id}`}
-                  className="group block rounded-2xl overflow-hidden bg-white/[0.03] border border-white/5 hover:border-white/15 transition-all duration-500 hover:shadow-xl hover:shadow-black/20 hover:-translate-y-1"
-                >
-                  {/* Image */}
-                  <div className="relative aspect-square overflow-hidden bg-bg-card">
-                    <Image
-                      src={product.image}
-                      alt={product.name}
-                      fill
-                      className="object-cover group-hover:scale-110 transition-transform duration-700"
-                      sizes="(max-width: 768px) 50vw, 25vw"
-                    />
-                    {/* Badge */}
-                    <div
-                      className={`absolute top-3 left-3 px-2.5 py-1 rounded-lg bg-gradient-to-r ${product.badgeColor} text-white text-[10px] font-bold uppercase tracking-wide shadow-lg`}
-                    >
-                      {product.badge}
-                    </div>
-                    {/* Quick Actions */}
-                    <div className="absolute top-3 right-3 flex flex-col gap-1.5 opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-300">
-                      <button
-                        className="w-8 h-8 rounded-lg bg-black/50 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white hover:bg-primary/80 transition-colors"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        <Heart size={14} />
-                      </button>
-                      <button
-                        className="w-8 h-8 rounded-lg bg-black/50 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white hover:bg-primary/80 transition-colors"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        <Eye size={14} />
-                      </button>
-                    </div>
-                    {/* Bottom gradient */}
-                    <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-bg-primary/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </div>
-
-                  {/* Content */}
-                  <div className="p-4">
-                    <h3 className="text-sm font-medium text-text-primary truncate group-hover:text-primary-light transition-colors">
-                      {product.name}
-                    </h3>
-                    <div className="flex items-center gap-1.5 mt-1.5">
-                      <StarRating rating={product.rating} size={11} />
-                      <span className="text-[11px] text-text-muted">
-                        ({product.reviews})
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-2 mt-2.5">
-                      <span className="text-base font-bold text-primary-light">
-                        {formatPrice(product.price)}
-                      </span>
-                      {product.originalPrice > product.price && (
-                        <span className="text-xs text-text-muted line-through">
-                          {formatPrice(product.originalPrice)}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                </Link>
-              </motion.div>
-            ))}
-          </motion.div>
-
-          {/* Mobile "See All" */}
-          <div className="mt-8 text-center md:hidden">
-            <Link href="/products">
-              <Button variant="secondary" size="md">
-                See All Products
-                <ArrowRight size={16} />
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════ */}
-      {/* PROMOTIONAL BANNER */}
-      {/* ═══════════════════════════════════════════ */}
-      <section className="py-10">
-        <div className="max-w-7xl mx-auto px-4 md:px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="relative rounded-3xl overflow-hidden"
-          >
-            {/* Background */}
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/30 via-accent/20 to-accent-2/20" />
-            <div className="absolute inset-0 bg-bg-primary/60 backdrop-blur-sm" />
-            <div
-              className="absolute inset-0 opacity-[0.04]"
-              style={{
-                backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
-                backgroundSize: "24px 24px",
-              }}
-            />
-
-            <div className="relative px-8 md:px-16 py-12 md:py-16 flex flex-col md:flex-row items-center justify-between gap-6">
-              <div className="text-center md:text-left">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent/15 border border-accent/30 text-xs font-semibold text-accent mb-4">
-                  <Zap size={12} />
-                  Limited Time Offer
-                </span>
-                <h3 className="text-2xl md:text-4xl font-display font-bold text-text-primary mb-2">
-                  Eid Collection <span className="gradient-text">2026</span>
-                </h3>
-                <p className="text-sm md:text-base text-text-secondary max-w-md">
-                  Explore our handpicked festive collection. Premium quality products with up to 50% off.
-                </p>
-              </div>
-              <Link href="/collections/eid-2026">
-                <Button variant="accent" size="lg" className="group whitespace-nowrap">
-                  Shop Collection
-                  <ArrowRight
-                    size={18}
-                    className="group-hover:translate-x-1 transition-transform"
-                  />
-                </Button>
-              </Link>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════ */}
-      {/* WHY E-PIC */}
-      {/* ═══════════════════════════════════════════ */}
-      <section className="py-16 md:py-20">
-        <div className="max-w-7xl mx-auto px-4 md:px-6">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeInUp}
-            custom={0}
-            className="text-center mb-12"
-          >
-            <span className="text-xs font-semibold text-accent uppercase tracking-widest">
-              Why Choose Us
-            </span>
-            <h2 className="text-2xl md:text-3xl font-display font-bold text-text-primary mt-1">
-              The E-Pic Difference
-            </h2>
-          </motion.div>
-
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={staggerContainer}
-            className="grid md:grid-cols-3 gap-5"
-          >
-            {[
-              {
-                icon: Sparkles,
-                title: "AI-Powered Discovery",
-                desc: "Get personalized recommendations based on your style and preferences. Our AI assistant helps you find exactly what you need.",
-                gradient: "from-primary/15 to-primary-light/15",
-                border: "border-primary/20",
-                iconColor: "text-primary-light",
-              },
-              {
-                icon: Shield,
-                title: "Zero Seller Fees",
-                desc: "No hidden commissions or listing fees. Sellers keep 100% of their earnings. We believe in fair commerce for everyone.",
-                gradient: "from-accent/15 to-emerald-500/15",
-                border: "border-accent/20",
-                iconColor: "text-accent",
-              },
-              {
-                icon: Star,
-                title: "Verified Reviews Only",
-                desc: "Every review comes from a verified purchase. No fake reviews, no paid ratings — just genuine customer experiences.",
-                gradient: "from-amber-500/15 to-orange-500/15",
-                border: "border-amber-500/20",
-                iconColor: "text-amber-400",
-              },
-            ].map(
-              (
-                { icon: Icon, title, desc, gradient, border, iconColor },
-                i
-              ) => (
-                <motion.div
-                  key={title}
-                  variants={fadeInUp}
-                  custom={i}
-                  className={`relative p-6 md:p-8 rounded-2xl bg-gradient-to-br ${gradient} border ${border} backdrop-blur-sm hover:scale-[1.02] transition-all duration-300 group overflow-hidden`}
-                >
-                  {/* Glow effect */}
-                  <div className="absolute -top-20 -right-20 w-40 h-40 bg-white/[0.02] rounded-full blur-2xl group-hover:bg-white/[0.04] transition-all" />
-
+                return (
                   <div
-                    className={`w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform`}
+                    key={product.id}
+                    className="group rounded-3xl bg-surface-container-low p-4 flex flex-col justify-between transition-all duration-300 shadow-md hover:shadow-xl"
                   >
-                    <Icon size={24} className={iconColor} />
+                    <div className="space-y-3">
+                      <Link
+                        href={`/product/${product.id}`}
+                        className="block relative w-full aspect-square rounded-2xl overflow-hidden bg-surface-container-lowest"
+                      >
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          alt={product.name}
+                          src={image}
+                        />
+                        {product.is_out_of_stock && (
+                          <div className="absolute inset-0 bg-background/70 backdrop-blur-sm flex items-center justify-center">
+                            <span className="px-3 py-1 rounded-full bg-error/20 text-error text-xs font-bold border border-error/30">
+                              Stock Out
+                            </span>
+                          </div>
+                        )}
+                        <button
+                          type="button"
+                          onClick={(e) => e.preventDefault()}
+                          className="absolute top-3 right-3 p-2 rounded-full bg-surface-container-lowest/80 backdrop-blur-md text-on-surface-variant hover:text-error transition-colors"
+                          title="Save to wishlist"
+                        >
+                          <span className="material-symbols-outlined text-sm">
+                            favorite
+                          </span>
+                        </button>
+                      </Link>
+                      <div>
+                        <span className="text-[11px] text-on-surface-variant">
+                          {stockText}
+                        </span>
+                        <Link
+                          href={`/product/${product.id}`}
+                          className="block font-headline-sm text-sm font-bold text-on-surface mt-0.5 line-clamp-1 group-hover:text-primary transition-colors"
+                        >
+                          {product.name}
+                        </Link>
+                      </div>
+                    </div>
+
+                    <div className="pt-4 flex items-center justify-between">
+                      <span className="font-headline-md text-base font-bold text-on-surface">
+                        ৳{product.price.toLocaleString("en-BD")}
+                      </span>
+                      <button
+                        type="button"
+                        disabled={product.is_out_of_stock}
+                        onClick={() => handleAddToCart(product)}
+                        className="px-3.5 py-2 rounded-full bg-surface-container-high hover:bg-primary hover:text-on-primary text-xs font-semibold text-on-surface transition-all flex items-center gap-1 shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                      >
+                        <span className="material-symbols-outlined text-sm">
+                          add_shopping_cart
+                        </span>
+                        <span>Add to Cart</span>
+                      </button>
+                    </div>
                   </div>
-                  <h3 className="text-lg font-display font-bold text-text-primary mb-2">
-                    {title}
-                  </h3>
-                  <p className="text-sm text-text-secondary leading-relaxed">
-                    {desc}
-                  </p>
-                </motion.div>
-              )
+                );
+              })
             )}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════ */}
-      {/* REVIEWS */}
-      {/* ═══════════════════════════════════════════ */}
-      <section className="py-16 md:py-20 relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/[0.02] to-transparent" />
-        <div className="max-w-7xl mx-auto px-4 md:px-6 relative">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeInUp}
-            custom={0}
-            className="text-center mb-12"
-          >
-            <span className="text-xs font-semibold text-accent-2 uppercase tracking-widest">
-              Testimonials
-            </span>
-            <h2 className="text-2xl md:text-3xl font-display font-bold text-text-primary mt-1">
-              What Our Customers Say
-            </h2>
-          </motion.div>
-
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={staggerContainer}
-            className="grid md:grid-cols-3 gap-5"
-          >
-            {reviews.map((review, i) => (
-              <motion.div
-                key={review.name}
-                variants={fadeInUp}
-                custom={i}
-                className="p-6 rounded-2xl bg-white/[0.03] border border-white/5 hover:border-white/10 transition-all duration-300 group"
-              >
-                <StarRating rating={review.rating} size={14} className="mb-4" />
-                <p className="text-sm text-text-secondary leading-relaxed mb-5">
-                  &ldquo;{review.comment}&rdquo;
-                </p>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white text-sm font-bold">
-                    {review.avatar}
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-text-primary">
-                      {review.name}
-                    </p>
-                    <p className="text-[11px] text-text-muted">
-                      Purchased: {review.product}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ═══════════════════════════════════════════ */}
-      {/* CTA — OPEN YOUR SHOP */}
-      {/* ═══════════════════════════════════════════ */}
-      <section className="py-16 md:py-20">
-        <div className="max-w-7xl mx-auto px-4 md:px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="relative rounded-3xl overflow-hidden"
-          >
-            {/* Background */}
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/25 via-bg-card to-accent/15" />
-            <div className="absolute inset-0 bg-bg-primary/40 backdrop-blur-sm" />
-
-            {/* Decorative orb */}
-            <div className="absolute -top-20 -right-20 w-60 h-60 bg-primary/30 rounded-full blur-[80px]" />
-            <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-accent/20 rounded-full blur-[60px]" />
-
-            <div className="relative px-8 md:px-16 py-14 md:py-20 text-center">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-semibold text-text-secondary mb-6">
-                <Sparkles size={12} className="text-primary-light" />
-                Powered by Xeni Commerce
-              </div>
-              <h2 className="text-3xl md:text-4xl font-display font-bold text-text-primary mb-4">
-                Ready to <span className="gradient-text">sell online?</span>
-              </h2>
-              <p className="text-base text-text-secondary max-w-lg mx-auto mb-8">
-                Open your shop on E-Pic for free. Let Xeni handle your products,
-                orders, inventory, and marketing with AI automation.
-              </p>
-              <div className="flex flex-wrap justify-center gap-3">
-                <a
-                  href="https://xeni.co"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Button variant="primary" size="lg" className="group">
-                    Open Free Shop
-                    <ArrowRight
-                      size={18}
-                      className="group-hover:translate-x-1 transition-transform"
-                    />
-                  </Button>
-                </a>
-                <Link href="/about">
-                  <Button variant="secondary" size="lg">
-                    Learn More
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-    </div>
+          </div>
+        </section>
+      </div>
+    </main>
   );
 }

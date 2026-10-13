@@ -3,19 +3,12 @@ import "./globals.css";
 import Providers from "@/components/layout/Providers";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import CartDrawer from "@/components/cart/CartDrawer";
 
 export const metadata: Metadata = {
-  title: "E-Pic Marketplace — Bangladesh's Premium Shopping Destination",
+  title: "E-Pic Marketplace — Bangladesh's Next-Gen Smart Commerce",
   description:
-    "Discover products, explore personalized shops, and enjoy AI-powered shopping assistance. Free for customers and sellers.",
-  keywords: [
-    "E-Pic",
-    "marketplace",
-    "Bangladesh",
-    "shopping",
-    "e-commerce",
-    "online shop",
-  ],
+    "Experience authentic Bangladeshi luxury and high-performance technology. Guaranteed 2-Hour Dhaka Express handoff, instant decentralized escrow, and intelligent AI-matched bundles.",
 };
 
 export default function RootLayout({
@@ -24,20 +17,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="light">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-      </head>
-      <body className="font-sans antialiased bg-bg-primary text-text-primary">
+    <html lang="en" className="dark" suppressHydrationWarning>
+      <body className="bg-background text-on-surface font-body-md text-body-md min-h-screen selection:bg-primary-container selection:text-on-primary-container antialiased">
         <Providers>
           <Navbar />
-          <main className="min-h-screen">{children}</main>
+          {children}
           <Footer />
+          <CartDrawer />
         </Providers>
       </body>
     </html>

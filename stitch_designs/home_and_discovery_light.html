@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="web_standard" name="shell-type"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+    ::-webkit-scrollbar { display: none; }
+  </style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "on-primary-fixed": "#0f0069",
+            "surface-container": "#eaedff",
+            "on-primary-fixed-variant": "#3323cc",
+            "tertiary-container": "#e0e7ff",
+            "on-secondary-fixed-variant": "#005236",
+            "on-secondary-fixed": "#002113",
+            "secondary-container": "#d1fae5",
+            "on-primary-container": "#312e81",
+            "surface-container-high": "#e2e7ff",
+            "inverse-primary": "#c3c0ff",
+            "secondary-fixed-dim": "#4edea3",
+            "on-background": "#0f172a",
+            "error-container": "#fee2e2",
+            "surface-bright": "#faf8ff",
+            "on-secondary-container": "#065f46",
+            "primary-container": "#4f46e5",
+            "outline": "#94a3b8",
+            "secondary-fixed": "#6ffbbe",
+            "inverse-surface": "#1e293b",
+            "surface-container-low": "#f8fafc",
+            "error": "#dc2626",
+            "on-surface-variant": "#475569",
+            "surface-dim": "#f1f5f9",
+            "background": "#f8fafc",
+            "on-surface": "#0f172a",
+            "on-tertiary": "#ffffff",
+            "on-primary": "#ffffff",
+            "surface-tint": "#4f46e5",
+            "on-secondary": "#ffffff",
+            "secondary": "#059669",
+            "primary-fixed": "#e0e7ff",
+            "surface": "#ffffff",
+            "surface-container-lowest": "#ffffff",
+            "outline-variant": "#e2e8f0",
+            "surface-container-highest": "#f1f5f9",
+            "on-tertiary-fixed-variant": "#2f2ebe",
+            "on-tertiary-container": "#3730a3",
+            "on-error": "#ffffff",
+            "tertiary-fixed": "#e0e7ff",
+            "tertiary": "#4f46e5",
+            "tertiary-fixed-dim": "#c7d2fe",
+            "surface-variant": "#f1f5f9",
+            "inverse-on-surface": "#f8fafc",
+            "on-error-container": "#991b1b",
+            "primary-fixed-dim": "#c3c0ff",
+            "primary": "#4f46e5",
+            "on-tertiary-fixed": "#07006c"
+          },
+          borderRadius: {
+            DEFAULT: "0.25rem",
+            lg: "0.5rem",
+            xl: "0.75rem",
+            full: "9999px"
+          },
+          spacing: {
+            "margin-mobile": "1rem",
+            "space-sm": "0.5rem",
+            "space-lg": "1.5rem",
+            "gutter": "1.5rem",
+            "gutter-mobile": "0.75rem",
+            "margin": "2rem",
+            "space-md": "1rem",
+            "space-xs": "0.25rem",
+            "space-xl": "2rem"
+          },
+          fontFamily: {
+            "headline-xl": ["Plus Jakarta Sans"],
+            "headline-xl-mobile": ["Plus Jakarta Sans"],
+            "body-md": ["Plus Jakarta Sans"],
+            "headline-lg-mobile": ["Plus Jakarta Sans"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "title-md": ["Plus Jakarta Sans"],
+            "label-sm": ["Plus Jakarta Sans"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "metric-num": ["Plus Jakarta Sans"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "body-sm": ["Plus Jakarta Sans"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "label-md": ["Plus Jakarta Sans"],
+            "currency-display": ["Plus Jakarta Sans"],
+            "display-lg": ["Plus Jakarta Sans"]
+          },
+          fontSize: {
+            "headline-xl": ["32px", { lineHeight: "40px", letterSpacing: "-0.02em", fontWeight: "700" }],
+            "headline-xl-mobile": ["26px", { lineHeight: "34px", letterSpacing: "-0.02em", fontWeight: "700" }],
+            "body-md": ["14px", { lineHeight: "22px", letterSpacing: "0em", fontWeight: "400" }],
+            "headline-lg-mobile": ["24px", { lineHeight: "32px", letterSpacing: "-0.02em", fontWeight: "700" }],
+            "body-lg": ["16px", { lineHeight: "26px", letterSpacing: "0em", fontWeight: "400" }],
+            "title-md": ["16px", { lineHeight: "24px", letterSpacing: "-0.005em", fontWeight: "600" }],
+            "label-sm": ["11px", { lineHeight: "14px", letterSpacing: "0.04em", fontWeight: "700" }],
+            "headline-md": ["24px", { lineHeight: "32px", letterSpacing: "-0.015em", fontWeight: "600" }],
+            "metric-num": ["28px", { lineHeight: "32px", letterSpacing: "-0.02em", fontWeight: "700" }],
+            "currency-display": ["24px", { lineHeight: "30px", letterSpacing: "-0.02em", fontWeight: "800" }],
+            "display-lg": ["44px", { lineHeight: "52px", letterSpacing: "-0.03em", fontWeight: "800" }],
+            "headline-sm": ["18px", { lineHeight: "26px", letterSpacing: "-0.01em", fontWeight: "600" }],
+            "body-sm": ["13px", { lineHeight: "18px", letterSpacing: "0.005em", fontWeight: "400" }],
+            "headline-lg": ["32px", { lineHeight: "40px", letterSpacing: "-0.02em", fontWeight: "700" }],
+            "label-md": ["12px", { lineHeight: "16px", letterSpacing: "0.02em", fontWeight: "600" }]
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-background text-on-surface font-body-md text-body-md min-h-screen selection:bg-primary/20 selection:text-primary">
+<!-- Navigation Header: Clean White Frosted Glass -->
+<header class="fixed top-0 inset-x-0 z-50 bg-white/90 backdrop-blur-xl border-b border-slate-200/80 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.06)]">
+<div class="h-28 max-w-7xl mx-auto px-6 flex flex-col justify-between py-2">
+<div class="flex items-center justify-between gap-4 h-16">
+<div class="flex items-center gap-5 shrink-0">
+<div class="flex items-center gap-3">
+<img alt="Brand logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VOc_INro0VOOJXjjwTwSXZ_qyAp-qPTxQMMEQF6brUr-ct-7zbF3Ra6RfYeQj-sFI3uCFjTUkp309yy4PNRyGYwpjSWXfde0JUx0mUwusGGtly3AN2pULJrwyNVCNRfRTxYjwiyCvVY_KCipmP21RJeGMI9exf9UIQpbVFTuCLDPscqFahrTsrfoLK0sT0wGWGy5TOmITd8bi4w6DnCneLYR0eNpQ1KW_gR2SMXWbYCx63rhYqcXi0b2s"/>
+<span class="font-headline-sm text-headline-sm text-slate-900 tracking-tight font-bold hidden sm:inline-block">E-Pic<span class="text-secondary ml-0.5">.</span></span>
+</div>
+<button class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200/80 border border-slate-200/60 transition-colors text-left">
+<span class="material-symbols-outlined text-secondary text-lg">location_on</span>
+<div class="flex flex-col leading-tight">
+<span class="text-[10px] text-slate-500 font-medium uppercase tracking-wider">Deliver to</span>
+<span class="font-label-md text-label-md text-slate-900 font-semibold truncate max-w-[120px]">Dhaka, Dhanmondi</span>
+</div>
+<span class="material-symbols-outlined text-slate-400 text-base">expand_more</span>
+</button>
+<button class="hidden xl:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200/80 border border-slate-200/60 text-slate-800 transition-colors font-label-md text-label-md">
+<span class="material-symbols-outlined text-lg text-primary">category</span>
+<span>Categories</span>
+<span class="material-symbols-outlined text-sm text-slate-400">keyboard_arrow_down</span>
+</button>
+</div>
+<div class="flex-1 max-w-2xl mx-2">
+<div class="relative flex items-center w-full h-11 rounded-xl bg-slate-50 border border-slate-200 focus-within:border-primary focus-within:bg-white focus-within:ring-2 focus-within:ring-primary/20 shadow-sm transition-all">
+<span class="material-symbols-outlined pl-3.5 text-slate-400 text-xl">search</span>
+<input class="w-full h-full bg-transparent pl-3 pr-28 text-slate-900 placeholder:text-slate-400 font-body-sm text-body-sm focus:outline-none" placeholder="Search 1M+ live products, brands, tech, or Ask E-Pic AI..." type="text"/>
+<div class="absolute right-2 flex items-center gap-1 text-slate-500">
+<button class="p-1.5 rounded-lg hover:bg-slate-200/60 text-slate-500 hover:text-slate-800 transition-colors" title="Visual camera search">
+<span class="material-symbols-outlined text-lg">photo_camera</span>
+</button>
+<button class="p-1.5 rounded-lg hover:bg-slate-200/60 text-slate-500 hover:text-slate-800 transition-colors" title="Voice input">
+<span class="material-symbols-outlined text-lg">mic</span>
+</button>
+<button class="flex items-center gap-1 px-2.5 py-1 rounded-md bg-primary text-white font-label-sm text-label-sm hover:bg-primary/90 shadow-sm transition-all">
+<span class="material-symbols-outlined text-sm">auto_awesome</span>
+<span>AI Ask</span>
+</button>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-3 shrink-0">
+<div class="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200/60" title="Real-time synchronized with Xeni Master Logistics &amp; Inventory">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-secondary"></span>
+</span>
+<span class="font-label-sm text-label-sm text-emerald-800 font-semibold tracking-wide uppercase">Xeni Sync Live</span>
+</div>
+<a class="hidden xl:block font-label-md text-label-md text-slate-600 hover:text-primary transition-colors font-medium" href="#">Sell on E-Pic</a>
+<button class="relative p-2 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200/60 text-slate-600 hover:text-slate-900 transition-colors">
+<span class="material-symbols-outlined text-xl">favorite</span>
+<span class="absolute -top-1 -right-1 flex items-center justify-center h-4 w-4 rounded-full bg-secondary text-white font-label-sm text-[10px] font-bold shadow-sm">4</span>
+</button>
+<button class="relative flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200/60 text-slate-800 transition-colors">
+<span class="material-symbols-outlined text-secondary text-xl">shopping_bag</span>
+<div class="hidden sm:flex flex-col text-left leading-tight">
+<span class="text-[10px] text-slate-500 font-medium uppercase">Cart</span>
+<span class="font-label-md text-label-md font-bold text-slate-900">৳4,200 [2]</span>
+</div>
+</button>
+<button class="relative p-2 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200/60 text-slate-600 hover:text-slate-900 transition-colors">
+<span class="material-symbols-outlined text-xl">notifications</span>
+<span class="absolute -top-1 -right-1 flex items-center justify-center h-4 w-4 rounded-full bg-red-500 text-white font-label-sm text-[10px] font-bold shadow-sm">3</span>
+</button>
+<div class="flex items-center pl-1 shrink-0">
+<img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-2 ring-primary/30" src="https://lh3.googleusercontent.com/aida/AEtjO1WSpoNUPURfDFO0oz_NqPlwIaYGwZLptXol7s20ig22d_-QHNmYLkeqk2qmA1ew80Pq7558Up_peZiDQ682q7Mhp5gfmQEtC2v_8IwjPvg0ZFZ4_ae_tvA-oRkOT7RmFXUhe_ER0sAPMEmkInc9NrQZQlExPyvyOTw8pk07b46mGdNfW6gpy_dcGDvoEnFwOZwVt6lrbmLrh6rMetsPe29-LISNlGvYcdgtzX4aLkoKYT_K05CG0TZLHCo"/>
+</div>
+</div>
+</div>
+<nav class="flex items-center justify-between gap-6 overflow-x-auto h-10 border-t border-slate-200 pt-1.5 text-slate-600">
+<div class="flex items-center gap-6 shrink-0">
+<a aria-current="page" class="transition-colors px-2.5 py-1 bg-primary text-white font-bold rounded-lg shadow-sm" data-path="home" href="#">Hot Flash Deals</a>
+<a class="font-label-md text-label-md text-slate-600 hover:text-primary transition-colors px-2 py-1 font-semibold" data-path="products" href="#">Tech &amp; Gadgets</a>
+<a class="font-label-md text-label-md text-slate-600 hover:text-primary transition-colors px-2 py-1 font-semibold" data-path="product-detail" href="#">Men's Fashion</a>
+<a class="font-label-md text-label-md text-slate-600 hover:text-primary transition-colors px-2 py-1 font-semibold" data-path="checkout" href="#">Women's Ethnic</a>
+<a class="font-label-md text-label-md text-slate-600 hover:text-primary transition-colors px-2 py-1 font-semibold" href="#">Skincare</a>
+<a class="font-label-md text-label-md text-slate-600 hover:text-primary transition-colors px-2 py-1 font-semibold" href="#">Official Stores</a>
+</div>
+<div class="flex items-center gap-4 shrink-0">
+<a class="flex items-center gap-1.5 font-label-md text-label-md text-indigo-600 hover:text-indigo-800 font-semibold transition-colors px-2 py-1" href="#">
+<span class="material-symbols-outlined text-base">smart_toy</span>
+<span>AI Personal Shopper</span>
+</a>
+<a class="flex items-center gap-1 font-label-md text-label-md text-slate-600 hover:text-slate-900 font-semibold transition-colors px-2 py-1" href="#">
+<span class="material-symbols-outlined text-base">support_agent</span>
+<span>24/7 Support</span>
+</a>
+</div>
+</nav>
+</div>
+</header>
+<main class="w-full pt-28 bg-background relative min-h-screen">
+<div class="flex flex-col w-full">
+<!-- Top Split Hero with Atmospheric Glow -->
+<section class="relative w-full overflow-hidden pb-12 pt-6">
+<div class="absolute -top-32 left-1/4 w-[580px] h-[580px] bg-primary/5 rounded-full blur-[128px] pointer-events-none"></div>
+<div class="absolute top-20 right-10 w-[420px] h-[420px] bg-secondary/5 rounded-full blur-[140px] pointer-events-none"></div>
+<div class="max-w-7xl mx-auto px-6">
+<!-- Breadcrumb / Status Ticker -->
+<div class="flex items-center gap-3 mb-6">
+<span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-secondary text-label-sm font-label-sm tracking-wide uppercase font-bold">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-secondary"></span>
+</span>
+              Xeni ERP Node 04 : Live Sync Active
+            </span>
+<span class="text-slate-500 font-body-sm text-body-sm hidden md:inline-flex items-center gap-1.5 font-medium">
+<span class="material-symbols-outlined text-sm text-primary">bolt</span>
+              Dhaka Hub Avg Express Dispatch: 18 Mins
+            </span>
+</div>
+<!-- Split Hero Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- Hero Left Column -->
+<div class="lg:col-span-7 flex flex-col justify-center space-y-6 pt-2">
+<div class="space-y-3">
+<div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-indigo-50 border border-indigo-100 text-indigo-700">
+<span class="material-symbols-outlined text-primary text-base">auto_awesome</span>
+<span class="font-label-sm text-label-sm font-bold">Gemini Multi-Modal Smart Commerce 3.0</span>
+</div>
+<h1 class="font-display-lg text-display-lg text-slate-900 font-extrabold tracking-tight leading-tight">
+                  বাংলাদেশের সবচেয়ে <span class="bg-gradient-to-r from-primary to-emerald-600 bg-clip-text text-transparent">দ্রুতগতির স্মার্ট</span> মার্কেটপ্লেস
+                </h1>
+<p class="font-body-lg text-body-lg text-slate-600 max-w-xl leading-relaxed">
+                  Decentralized localized seller inventory wired via <strong class="text-slate-900 font-semibold">Xeni Commerce Mesh</strong>. Experience guaranteed 2-Hour Dhaka Express handoff, instant bKash/Nagad escrows, and AI-negotiated prices.
+                </p>
+</div>
+<!-- Feature Metric Badges -->
+<div class="grid grid-cols-3 gap-3 pt-1 max-w-lg">
+<div class="p-3.5 rounded-xl bg-white border border-slate-200/80 shadow-sm flex flex-col">
+<span class="font-headline-sm text-headline-sm text-emerald-600 font-bold">2-Hour</span>
+<span class="font-label-sm text-label-sm text-slate-500 font-medium">Dhaka Express Delivery</span>
+</div>
+<div class="p-3.5 rounded-xl bg-white border border-slate-200/80 shadow-sm flex flex-col">
+<span class="font-headline-sm text-headline-sm text-primary font-bold">100%</span>
+<span class="font-label-sm text-label-sm text-slate-500 font-medium">Decentralized Escrow</span>
+</div>
+<div class="p-3.5 rounded-xl bg-white border border-slate-200/80 shadow-sm flex flex-col">
+<span class="font-headline-sm text-headline-sm text-indigo-500 font-bold">0.4s</span>
+<span class="font-label-sm text-label-sm text-slate-500 font-medium">Live ERP Sync Tick</span>
+</div>
+</div>
+<!-- CTAs -->
+<div class="flex flex-wrap items-center gap-4 pt-2">
+<button class="flex items-center gap-2.5 px-7 py-4 rounded-xl bg-primary text-white font-headline-sm text-headline-sm font-bold shadow-lg shadow-indigo-500/25 hover:bg-primary/90 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-xl">bolt</span>
+<span>Explore Trending Deals</span>
+</button>
+<button class="flex items-center gap-2 px-6 py-4 rounded-xl bg-white border border-slate-200/80 hover:bg-slate-50 text-slate-800 font-headline-sm text-headline-sm font-semibold transition-all shadow-sm">
+<span class="material-symbols-outlined text-primary text-xl">psychology</span>
+<span>Try Gemini Shopper</span>
+</button>
+</div>
+<!-- Live Trust micro line -->
+<div class="flex items-center gap-4 pt-2 text-slate-500 font-body-sm text-body-sm">
+<div class="flex -space-x-2">
+<div class="w-7 h-7 rounded-full bg-emerald-100 border-2 border-white flex items-center justify-center text-[10px] text-emerald-700 font-bold">BD</div>
+<div class="w-7 h-7 rounded-full bg-indigo-100 border-2 border-white flex items-center justify-center text-[10px] text-indigo-700 font-bold">XN</div>
+<div class="w-7 h-7 rounded-full bg-amber-100 border-2 border-white flex items-center justify-center text-[10px] text-amber-700 font-bold">99+</div>
+</div>
+<span>Over <strong class="text-slate-800 font-semibold">18,400+ orders</strong> safely delivered across Dhaka &amp; Chittagong this week</span>
+</div>
+</div>
+<!-- Hero Right Column: Interactive Gemini AI Shopping Assistant -->
+<div class="lg:col-span-5 relative">
+<div class="relative rounded-2xl bg-white border border-slate-200/80 p-6 shadow-xl space-y-5 overflow-hidden">
+<!-- Glass Decorative Accent -->
+<div class="absolute -right-12 -top-12 w-44 h-44 bg-indigo-50 rounded-full blur-2xl pointer-events-none"></div>
+<!-- Widget Header -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<div class="w-9 h-9 rounded-xl bg-primary text-white flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-xl">auto_awesome</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-slate-900 font-bold leading-none">Gemini Copilot</h2>
+<span class="font-label-sm text-label-sm text-emerald-600 font-semibold flex items-center gap-1 mt-0.5">
+<span class="inline-block w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                        Live Context Engine
+                      </span>
+</div>
+</div>
+<span class="px-2.5 py-1 rounded-md bg-indigo-50 border border-indigo-100 text-indigo-600 font-label-sm text-label-sm font-bold tracking-wide uppercase">AI Assist</span>
+</div>
+<!-- Simulated Bangla Chat Prompt -->
+<div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200/60 space-y-2">
+<div class="flex items-center gap-2 text-slate-500 font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-sm text-primary">chat_bubble</span>
+<span>Active Voice / Prompt Bengali Query:</span>
+</div>
+<p class="font-body-md text-body-md text-slate-800 font-medium italic">
+                    “আমার বোনের জন্মদিনের জন্য ৫,০০০ টাকার মধ্যে গর্জিয়াস ড্রেস ও ম্যাচিং জুয়েলারি সাজেস্ট করো”
+                  </p>
+</div>
+<!-- Gemini Real-time Budget Engine Analysis -->
+<div class="p-4 rounded-xl bg-slate-50 border border-slate-200/80 space-y-3">
+<div class="flex items-center justify-between text-slate-900">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-emerald-600 text-base">account_balance_wallet</span>
+<span class="font-label-md text-label-md font-bold">Budget Optimization Engine</span>
+</div>
+<span class="font-currency-display text-currency-display text-emerald-700 font-extrabold">৳৪,৭০০ <span class="font-body-sm text-body-sm text-slate-500 font-normal">/ ৳৫,০০০</span></span>
+</div>
+<!-- Inline Progress Bar & Mini Visualization -->
+<div class="space-y-1.5">
+<div class="w-full bg-slate-200 h-2.5 rounded-full overflow-hidden flex">
+<div class="bg-primary h-full rounded-l-full transition-all" style="width: 68%" title="Silk Jamdani Kurti (৳৩,২০০)"></div>
+<div class="bg-indigo-400 h-full transition-all" style="width: 26%" title="Kundan Choker Set (৳১,৫০০)"></div>
+<div class="bg-slate-300 h-full flex-1" title="Remaining Surplus"></div>
+</div>
+<div class="flex items-center justify-between text-[11px] text-slate-600 font-medium">
+<span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-primary inline-block"></span> Dress: ৳৩,২০০</span>
+<span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-indigo-400 inline-block"></span> Jewelry: ৳১,৫০০</span>
+<span class="text-emerald-700 font-bold">Saved: ৳৩০০ Surplus</span>
+</div>
+</div>
+</div>
+<!-- Curated Products Stack Suggested by AI -->
+<div class="space-y-2.5">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-slate-500 uppercase tracking-wider font-bold">Matched Pair Bundle (2 Items)</span>
+<span class="font-label-sm text-label-sm text-emerald-600 font-bold">Xeni In-Stock ✓</span>
+</div>
+<!-- Item 1 -->
+<div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 hover:bg-slate-100/80 border border-slate-200/60 transition-colors">
+<div class="flex items-center gap-3">
+<img class="w-12 h-12 rounded-lg object-cover border border-slate-200" data-alt="Emerald green soft silk Jamdani ethnic gown with golden thread zari embroidery laid flat on dark velvet fabric studio product shot" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDESzocvPgJ0KX3GKZ9tW4itbCMeNHwS5dwVdkgzcj6Uif9PReuZM3cZuJuNhvL5-IVbsO09Hv7ZKj-fYFTnQ0v0Dv6BA1XOnofv7Nz8z4fLIQfghsUB6wYbg6aM7PCxoza8ICfAE9I8_3eyA206SEfYLjJxwOp1s4d_05vRlHAAK6_r_G74SLQUxxsJ0pB3DyjD41Ny1tZkcOh3jPZBcTBXMgVAbPjkhpYvN-kqcbj66TvcmAhKzouTA"/>
+<div>
+<h4 class="font-label-md text-label-md text-slate-900 font-bold truncate max-w-[170px]">Emerald Handloom Silk Kurti</h4>
+<span class="font-body-sm text-body-sm text-slate-500">Anokhi Traditional Studio</span>
+</div>
+</div>
+<div class="text-right">
+<span class="font-label-md text-label-md text-slate-900 font-bold">৳৩,২০০</span>
+<span class="block text-[10px] text-emerald-600 font-semibold">Ready in Dhanmondi</span>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 hover:bg-slate-100/80 border border-slate-200/60 transition-colors">
+<div class="flex items-center gap-3">
+<img class="w-12 h-12 rounded-lg object-cover border border-slate-200" data-alt="Traditional handcrafted Kundan necklace choker with emerald green teardrop gemstones and matching earrings on black satin background high end luxury jewelry photography" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDunsquC_L9U1RPrYDOqMr1RbPqljKwP2RY7QfMmcD-C-s3z8d9zy0ZdebXzPSKVhmW1S3VkuSiwl9lwJ0O445vsOuXeQ88hC9buq9ZHqNCVw2W27ku_jbiZefpFpWN2HLmhrN7n92IpCoiKr96t-5BBayFaACptLzJFbXNW7j-VSxlB01WPZWFV2iW_Nro_dyJbVsxQmhtVvT09aCVk8AraJjjhD-cQFQD0guPcS7hA2GjwQ0JKunZcw"/>
+<div>
+<h4 class="font-label-md text-label-md text-slate-900 font-bold truncate max-w-[170px]">Royal Kundan Choker &amp; Earrings</h4>
+<span class="font-body-sm text-body-sm text-slate-500">Zaveri Express BD</span>
+</div>
+</div>
+<div class="text-right">
+<span class="font-label-md text-label-md text-slate-900 font-bold">৳১,৫০০</span>
+<span class="block text-[10px] text-emerald-600 font-semibold">Verified Authentic</span>
+</div>
+</div>
+</div>
+<!-- Bundle Quick Buy Button -->
+<button class="w-full py-3 rounded-xl bg-emerald-600 text-white font-headline-sm text-headline-sm font-bold flex items-center justify-center gap-2 hover:bg-emerald-700 active:scale-98 transition-all shadow-md">
+<span class="material-symbols-outlined text-xl">shopping_cart_checkout</span>
+<span>Checkout Bundled Pair (৳৪,৭০০)</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Live Flash Deals Ticker Bar -->
+<section class="w-full bg-white border-y border-slate-200/80 py-3.5 my-4 shadow-sm">
+<div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+<!-- Left Flash Deal Countdown -->
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 px-3 py-1 rounded-lg bg-red-50 border border-red-200 text-red-600">
+<span class="material-symbols-outlined text-lg">local_fire_department</span>
+<span class="font-label-md text-label-md uppercase tracking-wider font-extrabold">Hot Flash Rush</span>
+</div>
+<div class="flex items-center gap-2 font-label-md text-label-md text-slate-800">
+<span class="text-slate-500 font-medium">Closes in:</span>
+<div class="flex items-center gap-1 font-mono font-bold text-slate-900">
+<span class="px-2 py-1 rounded bg-slate-100 border border-slate-200 text-primary" id="timer-hours">04</span>:
+                <span class="px-2 py-1 rounded bg-slate-100 border border-slate-200 text-primary" id="timer-mins">22</span>:
+                <span class="px-2 py-1 rounded bg-slate-100 border border-slate-200 text-emerald-600" id="timer-secs">10</span>
+</div>
+</div>
+</div>
+<!-- Center Dynamic Inventory Metric -->
+<div class="flex items-center gap-3 font-body-sm text-body-sm text-slate-600">
+<span class="flex h-2 w-2 rounded-full bg-secondary animate-pulse"></span>
+<span>Xeni Decentralized Inventory Hub: <strong class="text-slate-900 font-semibold">82,410 Units</strong> live in Dhaka, Bogura &amp; Sylhet hubs</span>
+</div>
+<!-- Right Instant Gateway Perks -->
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm text-slate-500 uppercase font-bold">Instant 5% Off With:</span>
+<span class="px-2.5 py-0.5 rounded-md bg-[#e2136e]/10 border border-[#e2136e]/20 text-[#e2136e] font-label-sm text-label-sm font-extrabold">bKash</span>
+<span class="px-2.5 py-0.5 rounded-md bg-[#f7921e]/10 border border-[#f7921e]/20 text-[#d97706] font-label-sm text-label-sm font-extrabold">Nagad</span>
+</div>
+</div>
+</section>
+<!-- Featured Flash Sale Marquee Hero Card -->
+<section class="max-w-7xl mx-auto px-6 my-6 w-full">
+<div class="relative rounded-3xl bg-white border border-slate-200 p-8 overflow-hidden shadow-lg">
+<!-- Ambient Backdrops -->
+<div class="absolute -right-20 -bottom-20 w-96 h-96 bg-primary/5 rounded-full blur-[80px] pointer-events-none"></div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center relative z-10">
+<!-- Visual Gear Showcase -->
+<div class="md:col-span-5 flex justify-center">
+<div class="relative group">
+<div class="absolute inset-0 bg-primary/10 rounded-3xl blur-xl group-hover:blur-2xl transition-all"></div>
+<img class="relative w-72 h-72 object-cover rounded-2xl border border-slate-200 shadow-md transition-transform duration-500 group-hover:scale-105" data-alt="Futuristic Aura 7 Pulse Pro wireless active noise cancellation over ear headphones in matte obsidian black with glowing emerald LED accents floating against a minimal dark tech backdrop" src="https://lh3.googleusercontent.com/aida-public/AB6AXuArLaHe7PGVtYzIy4w8MlTUERrmcXK4boooAfqv0KN_krTDzTK-p2zK3AgrlY1q5vKzhL2zsQSARBXGjWf1yW8jgxg0dfws6-lxSMhiB99JEdrtDN2Fo1BfyS-08lpcxyXd0w6RrlzR2kQQUdNbKaI5Uq_gLEPukGvXLI15qS6dsgrr1O3a2VmH39KEKnRVJJ1phrgchS9fsgMXIacXgqbK-mhns5M-Y23fX9QQYElZJ2ybJQHbpSxF2A"/>
+<span class="absolute top-3 left-3 px-3 py-1 rounded-full bg-emerald-600 text-white font-label-sm text-label-sm font-extrabold uppercase shadow-sm">Save 40% Today</span>
+</div>
+</div>
+<!-- Deal Content & Spec Breakdown -->
+<div class="md:col-span-7 space-y-5">
+<div class="flex flex-wrap items-center gap-3">
+<span class="px-3 py-1 rounded-lg bg-indigo-50 border border-indigo-100 text-indigo-700 font-label-sm text-label-sm font-bold flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm text-primary">verified</span> Verified Official Xeni Hub
+                </span>
+<span class="text-slate-600 font-label-sm text-label-sm flex items-center gap-1 font-medium">
+<span class="material-symbols-outlined text-sm text-secondary">timer</span> 2-Hour Dhaka Express Dispatch
+                </span>
+</div>
+<div>
+<h3 class="font-headline-xl text-headline-xl text-slate-900 font-extrabold">Aura-7 Pulse Pro ANC Wireless Headphones</h3>
+<p class="font-body-md text-body-md text-slate-600 mt-2 leading-relaxed">
+                  Hybrid 42dB Active Noise Cancellation, 65-Hour Battery Endurance, LDAC Hi-Res Wireless Certification, and zero-latency multi-device switching. Official manufacturer warranty backed with E-Pic Escrow.
+                </p>
+</div>
+<!-- Price & Action Trigger -->
+<div class="flex flex-wrap items-center gap-6 pt-2">
+<div>
+<div class="flex items-baseline gap-3">
+<span class="font-display-lg text-display-lg font-extrabold text-slate-900">৳৩,৪৯৯</span>
+<span class="font-headline-sm text-headline-sm line-through text-slate-400 font-semibold">৳৫,৮০০</span>
+</div>
+<span class="font-label-sm text-label-sm text-emerald-600 font-bold">Includes ৳৩০০ bKash instant checkout cash rebate</span>
+</div>
+<div class="flex items-center gap-3">
+<button class="px-8 py-4 rounded-xl bg-primary text-white font-headline-sm text-headline-sm font-bold hover:bg-primary/90 active:scale-95 transition-all shadow-lg shadow-indigo-500/20 flex items-center gap-2">
+<span class="material-symbols-outlined text-xl">flash_on</span>
+<span>Buy Now with Escrow</span>
+</button>
+<button class="p-4 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-600 hover:text-slate-900 transition-colors" title="Save to wishlist">
+<span class="material-symbols-outlined text-xl">favorite_border</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Interactive Category Showcase -->
+<section class="max-w-7xl mx-auto px-6 py-10 w-full">
+<div class="flex items-end justify-between mb-8">
+<div>
+<span class="font-label-sm text-label-sm text-primary uppercase tracking-widest font-bold">Categorical Architecture</span>
+<h2 class="font-headline-xl text-headline-xl text-slate-900 font-bold mt-1">Curated Specialized Collections</h2>
+</div>
+<a class="font-label-md text-label-md text-emerald-700 hover:text-emerald-800 transition-colors flex items-center gap-1 font-bold" href="#">
+<span>View all 48 departments</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+<!-- Category Bento Grid -->
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+<!-- Cat 1 -->
+<a class="group flex flex-col p-5 rounded-2xl bg-white hover:bg-indigo-50/50 border border-slate-200 hover:border-indigo-200 transition-all duration-300 shadow-sm hover:shadow-md" href="#">
+<div class="w-14 h-14 rounded-2xl bg-indigo-50 text-primary group-hover:scale-110 group-hover:bg-primary group-hover:text-white flex items-center justify-center transition-all duration-300 mb-4">
+<span class="material-symbols-outlined text-3xl">devices</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-slate-900 font-bold group-hover:text-primary transition-colors">Tech &amp; Gadgets</h3>
+<span class="font-body-sm text-body-sm text-slate-500 mt-1 font-medium">14,290 items</span>
+</a>
+<!-- Cat 2 -->
+<a class="group flex flex-col p-5 rounded-2xl bg-white hover:bg-emerald-50/50 border border-slate-200 hover:border-emerald-200 transition-all duration-300 shadow-sm hover:shadow-md" href="#">
+<div class="w-14 h-14 rounded-2xl bg-emerald-50 text-secondary group-hover:scale-110 group-hover:bg-emerald-600 group-hover:text-white flex items-center justify-center transition-all duration-300 mb-4">
+<span class="material-symbols-outlined text-3xl">apparel</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-slate-900 font-bold group-hover:text-secondary transition-colors">Men's Fashion</h3>
+<span class="font-body-sm text-body-sm text-slate-500 mt-1 font-medium">8,410 items</span>
+</a>
+<!-- Cat 3 -->
+<a class="group flex flex-col p-5 rounded-2xl bg-white hover:bg-indigo-50/50 border border-slate-200 hover:border-indigo-200 transition-all duration-300 shadow-sm hover:shadow-md" href="#">
+<div class="w-14 h-14 rounded-2xl bg-indigo-50 text-indigo-600 group-hover:scale-110 group-hover:bg-indigo-600 group-hover:text-white flex items-center justify-center transition-all duration-300 mb-4">
+<span class="material-symbols-outlined text-3xl">styler</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-slate-900 font-bold group-hover:text-indigo-600 transition-colors">Women Jamdani</h3>
+<span class="font-body-sm text-body-sm text-slate-500 mt-1 font-medium">5,190 items</span>
+</a>
+<!-- Cat 4 -->
+<a class="group flex flex-col p-5 rounded-2xl bg-white hover:bg-pink-50/50 border border-slate-200 hover:border-pink-200 transition-all duration-300 shadow-sm hover:shadow-md" href="#">
+<div class="w-14 h-14 rounded-2xl bg-pink-50 text-[#e2136e] group-hover:scale-110 group-hover:bg-[#e2136e] group-hover:text-white flex items-center justify-center transition-all duration-300 mb-4">
+<span class="material-symbols-outlined text-3xl">spa</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-slate-900 font-bold group-hover:text-[#e2136e] transition-colors">Skincare &amp; Glow</h3>
+<span class="font-body-sm text-body-sm text-slate-500 mt-1 font-medium">3,800 items</span>
+</a>
+<!-- Cat 5 -->
+<a class="group flex flex-col p-5 rounded-2xl bg-white hover:bg-indigo-50/50 border border-slate-200 hover:border-indigo-200 transition-all duration-300 shadow-sm hover:shadow-md" href="#">
+<div class="w-14 h-14 rounded-2xl bg-indigo-50 text-indigo-600 group-hover:scale-110 group-hover:bg-indigo-600 group-hover:text-white flex items-center justify-center transition-all duration-300 mb-4">
+<span class="material-symbols-outlined text-3xl">sports_esports</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-slate-900 font-bold group-hover:text-indigo-600 transition-colors">Gaming Rigs</h3>
+<span class="font-body-sm text-body-sm text-slate-500 mt-1 font-medium">2,110 items</span>
+</a>
+<!-- Cat 6 -->
+<a class="group flex flex-col p-5 rounded-2xl bg-white hover:bg-teal-50/50 border border-slate-200 hover:border-teal-200 transition-all duration-300 shadow-sm hover:shadow-md" href="#">
+<div class="w-14 h-14 rounded-2xl bg-teal-50 text-teal-600 group-hover:scale-110 group-hover:bg-teal-600 group-hover:text-white flex items-center justify-center transition-all duration-300 mb-4">
+<span class="material-symbols-outlined text-3xl">chair</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-slate-900 font-bold group-hover:text-teal-600 transition-colors">Home &amp; Decor</h3>
+<span class="font-body-sm text-body-sm text-slate-500 mt-1 font-medium">4,950 items</span>
+</a>
+</div>
+</section>
+<!-- Verified Virtual Stores (Xeni ERP Powered) -->
+<section class="max-w-7xl mx-auto px-6 py-10 w-full">
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+<div>
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary"></span>
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider font-bold">Direct ERP Cloud Connections</span>
+</div>
+<h2 class="font-headline-xl text-headline-xl text-slate-900 font-bold mt-1">Verified Virtual Flagship Stores</h2>
+</div>
+<p class="font-body-sm text-body-sm text-slate-600 max-w-md">
+            These merchant warehouses sync their live physical inventory directly with E-Pic servers every 400ms. No phantom stockouts or canceled orders.
+          </p>
+</div>
+<!-- Stores 3-Column Showcase -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Store 1: Apex Official Flagship -->
+<div class="rounded-3xl bg-white border border-slate-200 p-6 space-y-5 shadow-sm hover:shadow-md transition-shadow">
+<!-- Store Header -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-2xl bg-slate-100 border border-slate-200 flex items-center justify-center font-headline-sm text-headline-sm font-black text-slate-800">
+                  AX
+                </div>
+<div>
+<div class="flex items-center gap-1.5">
+<h3 class="font-headline-sm text-headline-sm text-slate-900 font-bold">Apex Official Flagship</h3>
+<span class="material-symbols-outlined text-primary text-base" title="Verified Flagship">verified</span>
+</div>
+<span class="font-label-sm text-label-sm text-slate-500">28.4k Followers • 2-Hr Fast Dispatch</span>
+</div>
+</div>
+<div class="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-700 font-label-md text-label-md font-bold">
+<span class="material-symbols-outlined text-sm">star</span>
+<span>4.9</span>
+</div>
+</div>
+<!-- Showcase 3 Products -->
+<div class="grid grid-cols-3 gap-3">
+<div class="group rounded-xl bg-slate-50 border border-slate-200/60 p-2.5 space-y-2">
+<img class="w-full h-24 object-cover rounded-lg group-hover:scale-105 transition-transform" data-alt="Apex formal black Derby Luxe leather men shoe angled clean studio footwear photography against dark slate background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZwR2qdke35-YhmXDncKNWF4Hsp5lXyaDhGGxoXZX4J1TMRVoCx1gVlxA52-G6hoTuNJlMf6tLJA_qnrGjGpt6FtOizUoPvo7tenvfN4XXZwwO9nPwVrYdkbapNIGTmn-_0AWVH4Wm-XvPJdJMdqHgscOEf3ptSuSyWCWLjWx5lh4zKpoT9AwrADMjaz8pulJutH8jAu5fJAT6GFI1Yb4Y4el26FlMbtOZR2WRV7UxxFkzE3KEuVztdw"/>
+<div>
+<h4 class="font-label-sm text-label-sm text-slate-900 font-bold truncate">Derby Luxe</h4>
+<span class="font-label-md text-label-md text-emerald-700 font-extrabold">৳৪,৯৯০</span>
+</div>
+</div>
+<div class="group rounded-xl bg-slate-50 border border-slate-200/60 p-2.5 space-y-2">
+<img class="w-full h-24 object-cover rounded-lg group-hover:scale-105 transition-transform" data-alt="Apex Aero Sprint lightweight men athletic running shoes in charcoal grey and neon mint highlights on minimal platform" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYvX2HKv9s7a944wqaMG5PGVZRhyq_JWJIeS0Ljt1W5ggyJfF0NgZUnDItYVKd86ymyutibxV0BvZ6YJq3jN4-mx_PhfuKpuOaJDYTAZc20JpRv2lW2OnI4yRmsWZzs2okyMp3ZtRLUwVPBTtHzZ1xu9IEbPr3DygGmtU8gtd8T3pNp_sDQZDmq30aamrwGfn8H9Ca-cHvjkGOMs7wOHil48aI3am8yPdRe8O79SgtZ6lJB4R97en_cw"/>
+<div>
+<h4 class="font-label-sm text-label-sm text-slate-900 font-bold truncate">Aero Sprint</h4>
+<span class="font-label-md text-label-md text-emerald-700 font-extrabold">৳৩,৪৫০</span>
+</div>
+</div>
+<div class="group rounded-xl bg-slate-50 border border-slate-200/60 p-2.5 space-y-2">
+<img class="w-full h-24 object-cover rounded-lg group-hover:scale-105 transition-transform" data-alt="Apex genuine brown leather chelsea ankle boots with textured stitching high end footwear product shot" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAP4LvpfCuK28Ve5K3RSOGfJhJ5gG00rZAtDxZPbaXcFHwXqvInXLWiWoJj3qrlRDU7wkt3fBRB6CsWbaAdfonBMF23GxTqSz43BqWJ5c9MaJC9SUKusfAZE0G40hsun2ft2luAN2ktCmPo1BAWcZ6HZruqrYEhAFjot9mKvVAvQqZQt-lZYJMR32VhV4NHvWCv8oJR4qc6Us88VbvypDeYuk2NQQZMZmCtD8JIx9dQZiJfm-cC5DYxyA"/>
+<div>
+<h4 class="font-label-sm text-label-sm text-slate-900 font-bold truncate">Leather Boot</h4>
+<span class="font-label-md text-label-md text-emerald-700 font-extrabold">৳৬,২০০</span>
+</div>
+</div>
+</div>
+<!-- Store Footer Info -->
+<div class="flex items-center justify-between pt-2">
+<span class="font-label-sm text-label-sm text-emerald-700 font-semibold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                142 Styles In Stock
+              </span>
+<a class="px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-800 font-label-md text-label-md font-bold transition-colors" href="#">
+                Visit Store
+              </a>
+</div>
+</div>
+<!-- Store 2: Anokhi Traditional Studio -->
+<div class="rounded-3xl bg-white border border-slate-200 p-6 space-y-5 shadow-sm hover:shadow-md transition-shadow">
+<!-- Store Header -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-2xl bg-pink-50 border border-pink-200 text-[#e2136e] flex items-center justify-center font-headline-sm text-headline-sm font-black">
+                  AK
+                </div>
+<div>
+<div class="flex items-center gap-1.5">
+<h3 class="font-headline-sm text-headline-sm text-slate-900 font-bold">Anokhi Traditional Studio</h3>
+<span class="material-symbols-outlined text-primary text-base" title="Verified Handloom">verified</span>
+</div>
+<span class="font-label-sm text-label-sm text-slate-500">12.1k Followers • Handloom Authentic</span>
+</div>
+</div>
+<div class="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-700 font-label-md text-label-md font-bold">
+<span class="material-symbols-outlined text-sm">star</span>
+<span>4.8</span>
+</div>
+</div>
+<!-- Showcase 3 Products -->
+<div class="grid grid-cols-3 gap-3">
+<div class="group rounded-xl bg-slate-50 border border-slate-200/60 p-2.5 space-y-2">
+<img class="w-full h-24 object-cover rounded-lg group-hover:scale-105 transition-transform" data-alt="Traditional Bengali men cotton silk maroon Panjabi with golden embroidered collar and neckline on wooden hanger" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDa5CAu_RvHRBc2h-38shglcEBDeFzP-0q39hKZYM25BwbaoJqsDosDaPa4d7NagfkXdfcF-HhiKS7vIUYOctgZuipnlfo1m8TFfKR4LgwFB2d1vSrezHRsYIRuU8O6_Mn_MquItnY8UUWv7ZWI24_8EkPpi2K53cR55upc2Ju9Zqi1JunS6Qp4_A8PZGugJMfvUInUUovNLKBqkDrszv3ed3Cr6m9UHyUqyMyvKVrXRKrLtIbjyQkEOg"/>
+<div>
+<h4 class="font-label-sm text-label-sm text-slate-900 font-bold truncate">Zari Panjabi</h4>
+<span class="font-label-md text-label-md text-emerald-700 font-extrabold">৳৩,৮৫০</span>
+</div>
+</div>
+<div class="group rounded-xl bg-slate-50 border border-slate-200/60 p-2.5 space-y-2">
+<img class="w-full h-24 object-cover rounded-lg group-hover:scale-105 transition-transform" data-alt="Authentic handwoven royal blue Jamdani saree with intricate gold floral geometric motifs draped gracefully in soft lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2EsvU-4XBMnP0BBVU4vCS0dc8QwDrc_PjoyzL4v32idZQACNFoBZgIvGLNcjaieFwvNKBXcr7FOPcnCWmFk2pFQCgyRAFInyBmWTik-mZJ_6mWUJGlZqmznqQPBe5ZCn0Nhpfrd8yAu2Xpv_cylWt-rKW9M_M5Isouq-85EbNsZFmEWv5v1QWdaDrqvF_cTVyUgxFxWjqsCC7Bh9BXvOuGNI1kGQW-VV42ddzKB4qOs3EFhN77v20HQ"/>
+<div>
+<h4 class="font-label-sm text-label-sm text-slate-900 font-bold truncate">Heritage Jamdani</h4>
+<span class="font-label-md text-label-md text-emerald-700 font-extrabold">৳৮,৯০০</span>
+</div>
+</div>
+<div class="group rounded-xl bg-slate-50 border border-slate-200/60 p-2.5 space-y-2">
+<img class="w-full h-24 object-cover rounded-lg group-hover:scale-105 transition-transform" data-alt="Modern casual linen olive green men short kurta with mandarin collar high quality lifestyle garment image" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDK8pvi4aILhxs1zQu08DuqpbGB0-dEtXO09ao3icdwAL9w7VaWG0hSHa28kHc9rylwgfExuZpzPnkVXhPLdNIL_-YGyUncJXzVxp87n9WUgNYSww8gsj-c7PtLUmJJWlra2M0i9ynvdWvtWBa8YiP5ZI385CvvsFTzzv2MfnoVdRdH_nUDTcHE5TdVEq4uwIQYaauSK4BZWwErCF3y1fkDMPg-BCBGG76XhMbi4d64RYL3FuEIJL1V-g"/>
+<div>
+<h4 class="font-label-sm text-label-sm text-slate-900 font-bold truncate">Linen Kurta</h4>
+<span class="font-label-md text-label-md text-emerald-700 font-extrabold">৳২,৪০০</span>
+</div>
+</div>
+</div>
+<!-- Store Footer Info -->
+<div class="flex items-center justify-between pt-2">
+<span class="font-label-sm text-label-sm text-emerald-700 font-semibold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                86 Handloom Creations
+              </span>
+<a class="px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-800 font-label-md text-label-md font-bold transition-colors" href="#">
+                Visit Store
+              </a>
+</div>
+</div>
+<!-- Store 3: Pulse Audio Tech -->
+<div class="rounded-3xl bg-white border border-slate-200 p-6 space-y-5 shadow-sm hover:shadow-md transition-shadow">
+<!-- Store Header -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-2xl bg-indigo-50 border border-indigo-200 text-primary flex items-center justify-center font-headline-sm text-headline-sm font-black">
+                  PA
+                </div>
+<div>
+<div class="flex items-center gap-1.5">
+<h3 class="font-headline-sm text-headline-sm text-slate-900 font-bold">Pulse Audio Tech Flagship</h3>
+<span class="material-symbols-outlined text-primary text-base" title="Verified Audio Brand">verified</span>
+</div>
+<span class="font-label-sm text-label-sm text-slate-500">34.6k Followers • Official Importer</span>
+</div>
+</div>
+<div class="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-700 font-label-md text-label-md font-bold">
+<span class="material-symbols-outlined text-sm">star</span>
+<span>4.9</span>
+</div>
+</div>
+<!-- Showcase 3 Products -->
+<div class="grid grid-cols-3 gap-3">
+<div class="group rounded-xl bg-slate-50 border border-slate-200/60 p-2.5 space-y-2">
+<img class="w-full h-24 object-cover rounded-lg group-hover:scale-105 transition-transform" data-alt="True wireless stereo earbuds in sleek matte black charging case with blue LED battery status lights on dark metal surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGjS5C5lcHBLhIZjnmrZ8LZUS9AeSl4MsB-1t5McmSAZahRODSgzb_Uz1VRR2D8xdqLO0pZ62NGAbmZuQSr4IxyM8A64B8DwVBhTMWe0q0RLdrRONZ1bKWUwc07piJHVpsgpoZrtBiqYPZsv48qJJHQr2qUKzmDmF2zVRxRKn9s5wMyj_gbxJm7Vmz_wpmE081oLYvldNyZa2tGzVLP7pGwKXdour2KJgvts2T_BpdV7oD170U0HueUA"/>
+<div>
+<h4 class="font-label-sm text-label-sm text-slate-900 font-bold truncate">Pulse TWS Neo</h4>
+<span class="font-label-md text-label-md text-emerald-700 font-extrabold">৳২,১৯০</span>
+</div>
+</div>
+<div class="group rounded-xl bg-slate-50 border border-slate-200/60 p-2.5 space-y-2">
+<img class="w-full h-24 object-cover rounded-lg group-hover:scale-105 transition-transform" data-alt="Heavy bass portable waterproof bluetooth cylinder speaker with ambient rgb ring lighting on dark textured slate" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGQzEcAx-flHSP9BFWb8Ig16KhNtJRucoGaGZiWuzEJZgLpYURAqSKccuwUW3Gwq3GEFovSvXHAjc6DF_-9Kh9fXVLpnbdw2o9vL5Q7686bVZG-EZtjHtO_JOhB9Sz375n6RZzvplsD-AdxDTsIqAVVFa0CB2AhwPfBNR_kOOOpuiE2s97rUu5jrS59BDdS3yRg-3JVkH7DN6T8c3QN79V_Gq4_Hc6bAnGgjsCGiVsS0JJOZi9CCVtgg"/>
+<div>
+<h4 class="font-label-sm text-label-sm text-slate-900 font-bold truncate">Pulse Boom X</h4>
+<span class="font-label-md text-label-md text-emerald-700 font-extrabold">৳৪,২০০</span>
+</div>
+</div>
+<div class="group rounded-xl bg-slate-50 border border-slate-200/60 p-2.5 space-y-2">
+<img class="w-full h-24 object-cover rounded-lg group-hover:scale-105 transition-transform" data-alt="Studio condenser desktop USB microphone with metal boom arm and shock mount illuminated with gentle purple rim lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWmH0UMnsiKoE6Nkj0Cceh2W1O4UNxbW-amrHrLLyIooOYr5ekT28gYLeOdU6GgrhFr7P_HSDAbD0Mrqd9L5iqtGVEas6zVBAKOzHt_Ef0qB_jJRAhqyMf-dUhUC28tNdxjW0u91lXDtiA8IZ9R3P24CFuMZQnQe8ygVaIS1EsAtodvUSn4IE0EmpvxJc4Z-UPsyDAdxr4pXXwaJhnrn3t6LmS7CPNXqfWe3wg1faWvmCJOBCd1hiuDw"/>
+<div>
+<h4 class="font-label-sm text-label-sm text-slate-900 font-bold truncate">Stream Mic Pro</h4>
+<span class="font-label-md text-label-md text-emerald-700 font-extrabold">৳৩,৭০০</span>
+</div>
+</div>
+</div>
+<!-- Store Footer Info -->
+<div class="flex items-center justify-between pt-2">
+<span class="font-label-sm text-label-sm text-emerald-700 font-semibold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                Official 1-Yr Replacement
+              </span>
+<a class="px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-800 font-label-md text-label-md font-bold transition-colors" href="#">
+                Visit Store
+              </a>
+</div>
+</div>
+</div>
+</section>
+<!-- Trending Grid & Decentralized Live Feeds (8 Product Cards) -->
+<section class="max-w-7xl mx-auto px-6 py-10 w-full">
+<div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
+<div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-lg">trending_up</span>
+<span class="font-label-sm text-label-sm text-primary uppercase tracking-wider font-bold">Hyper-Velocity Catalog</span>
+</div>
+<h2 class="font-headline-xl text-headline-xl text-slate-900 font-bold mt-1">Trending Deals Across Bangladesh</h2>
+</div>
+<!-- Quick Filter Pills -->
+<div class="flex items-center gap-2 overflow-x-auto pb-1">
+<button class="px-3.5 py-1.5 rounded-lg bg-primary text-white font-label-md text-label-md font-bold shrink-0 shadow-sm">All Deals</button>
+<button class="px-3.5 py-1.5 rounded-lg bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 font-label-md text-label-md font-semibold shrink-0">Tech (Dhaka Hub)</button>
+<button class="px-3.5 py-1.5 rounded-lg bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 font-label-md text-label-md font-semibold shrink-0">Ethnic Handloom</button>
+<button class="px-3.5 py-1.5 rounded-lg bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 font-label-md text-label-md font-semibold shrink-0">Under ৳২,০০০</button>
+</div>
+</div>
+<!-- 4-Column Product Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Product Card 1 -->
+<div class="group flex flex-col justify-between rounded-2xl bg-white border border-slate-200 hover:border-slate-300 p-4 transition-all duration-300 shadow-sm hover:shadow-lg">
+<div class="space-y-3">
+<div class="relative w-full aspect-square rounded-xl overflow-hidden bg-slate-50 border border-slate-100">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Mechanical gaming keyboard with translucent pudding keycaps and per-key RGB backlighting angled tabletop shot" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAElGnxnOAPdSE-u8zAk3VBj3ubvdrG9tlgnovYQ3wTKw0BUvXfkWT7qXhSSvNJ2Av8t5jk1VEJUnJ1L6Vc0cPW_J7aWN4v3rQ8hYIihtDsuh2SAe1h_AWRk1PCr0fAazgP03gMp-WThMAsaZrnrOmQ1x0AiH3C0ljCrWXUD6mVLds-AhHyx1nhS5PS8atlSO6roQn-4nFhFegkbsDHfJACxguUohhutJqzt6urmxpJdrLsXi8gqg8qcQ"/>
+<span class="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-md bg-emerald-600 text-white font-label-sm text-label-sm font-extrabold shadow-sm">-30%</span>
+<button class="absolute top-2.5 right-2.5 p-2 rounded-full bg-white/90 shadow-sm backdrop-blur-md text-slate-400 hover:text-red-500 transition-colors" title="Save to wishlist">
+<span class="material-symbols-outlined text-base">favorite</span>
+</button>
+</div>
+<div class="space-y-1.5">
+<div class="flex items-center gap-1 text-[11px] text-slate-500 font-medium">
+<span class="material-symbols-outlined text-xs text-amber-500">star</span>
+<strong class="text-slate-900">4.9</strong>
+<span>(428 reviews)</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-slate-900 font-bold line-clamp-2 group-hover:text-primary transition-colors">
+                  Phantom RGB 75% Mechanical Keyboard (Hot-swappable)
+                </h3>
+</div>
+</div>
+<div class="space-y-3 pt-4">
+<!-- Xeni Live Inventory Pill -->
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-50 border border-emerald-100 text-emerald-700 text-[11px] font-semibold">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span>Xeni Live Stock: 4 units left in Banani</span>
+</div>
+<div class="flex items-center justify-between pt-1">
+<div>
+<span class="font-currency-display text-currency-display text-slate-900 font-extrabold">৳৩,২৯০</span>
+<span class="block font-body-sm text-body-sm text-slate-400 line-through">৳৪,৭০০</span>
+</div>
+<button class="p-3 rounded-xl bg-primary text-white hover:bg-primary/90 active:scale-95 transition-all shadow-md shadow-indigo-500/20" title="Quick Add to Cart">
+<span class="material-symbols-outlined text-lg">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="group flex flex-col justify-between rounded-2xl bg-white border border-slate-200 hover:border-slate-300 p-4 transition-all duration-300 shadow-sm hover:shadow-lg">
+<div class="space-y-3">
+<div class="relative w-full aspect-square rounded-xl overflow-hidden bg-slate-50 border border-slate-100">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Traditional pure cotton Dhakai Tangail saree in deep peacock blue and mustard border folded neatly on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWIT868IO6r4sSPeZmxt3egbO-zl5Lk1ZzPNIuxOBnGDX3F3RCpAeUAeVJMqiBOE1tyj8aU80KfcG9JGY-YFYI_u-sbX77couLzG9LW4Myb6vwZMSzAttaJybsXU8sXEuwVJXLCrFpE78l3eHROZ8KlTRqEQi-umUUrGscqpL1TzX3-3BnyI5ggMjtfDR4JH2CKHDJDnD50e6mBgOlMN4r3YEdEn3MHob2DlJMvB7aaVT2sj56FsiGPg"/>
+<span class="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-md bg-emerald-600 text-white font-label-sm text-label-sm font-extrabold shadow-sm">-25%</span>
+<button class="absolute top-2.5 right-2.5 p-2 rounded-full bg-white/90 shadow-sm backdrop-blur-md text-slate-400 hover:text-red-500 transition-colors" title="Save to wishlist">
+<span class="material-symbols-outlined text-base">favorite</span>
+</button>
+</div>
+<div class="space-y-1.5">
+<div class="flex items-center gap-1 text-[11px] text-slate-500 font-medium">
+<span class="material-symbols-outlined text-xs text-amber-500">star</span>
+<strong class="text-slate-900">4.8</strong>
+<span>(184 reviews)</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-slate-900 font-bold line-clamp-2 group-hover:text-primary transition-colors">
+                  Handwoven Heritage Tangail Pure Cotton Saree
+                </h3>
+</div>
+</div>
+<div class="space-y-3 pt-4">
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-50 border border-emerald-100 text-emerald-700 text-[11px] font-semibold">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span>Xeni Live Stock: 7 units left in Tangail</span>
+</div>
+<div class="flex items-center justify-between pt-1">
+<div>
+<span class="font-currency-display text-currency-display text-slate-900 font-extrabold">৳২,৪৫০</span>
+<span class="block font-body-sm text-body-sm text-slate-400 line-through">৳৩,৩০০</span>
+</div>
+<button class="p-3 rounded-xl bg-primary text-white hover:bg-primary/90 active:scale-95 transition-all shadow-md shadow-indigo-500/20" title="Quick Add to Cart">
+<span class="material-symbols-outlined text-lg">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="group flex flex-col justify-between rounded-2xl bg-white border border-slate-200 hover:border-slate-300 p-4 transition-all duration-300 shadow-sm hover:shadow-lg">
+<div class="space-y-3">
+<div class="relative w-full aspect-square rounded-xl overflow-hidden bg-slate-50 border border-slate-100">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Modern ultra compact 65W GaN fast charger wall plug with USB-C dual ports in clean matte white finish with sleek LED power dot" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-TzBYEprnASzpC632ZDWA8E8eyOoTxDUk0zgWqt_I6QUM_9eMw0dhZlRoWg5013T675TTGznB6BUIJylGctG9xASxxNbQGrl_gEF3bU3UgxABTMYGQSlek_lHnAgUtR7CsndPIiJ885CYUJ4Ta1iPoGTwChPbHXzx7b8Xjx9UUbGlTY2gsFefEFsUxapjZQb86xoI8hLiplFl44b1YRKqbbF9ehogbEBBMTXtqVszDkwqwhf4BTFc4w"/>
+<span class="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-md bg-emerald-600 text-white font-label-sm text-label-sm font-extrabold shadow-sm">-35%</span>
+<button class="absolute top-2.5 right-2.5 p-2 rounded-full bg-white/90 shadow-sm backdrop-blur-md text-slate-400 hover:text-red-500 transition-colors" title="Save to wishlist">
+<span class="material-symbols-outlined text-base">favorite</span>
+</button>
+</div>
+<div class="space-y-1.5">
+<div class="flex items-center gap-1 text-[11px] text-slate-500 font-medium">
+<span class="material-symbols-outlined text-xs text-amber-500">star</span>
+<strong class="text-slate-900">5.0</strong>
+<span>(912 reviews)</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-slate-900 font-bold line-clamp-2 group-hover:text-primary transition-colors">
+                  VoltPrime 65W Triple-Port GaN Laptop &amp; Phone Fast Charger
+                </h3>
+</div>
+</div>
+<div class="space-y-3 pt-4">
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-50 border border-emerald-100 text-emerald-700 text-[11px] font-semibold">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span>Xeni Live Stock: 18 units in Dhanmondi Hub</span>
+</div>
+<div class="flex items-center justify-between pt-1">
+<div>
+<span class="font-currency-display text-currency-display text-slate-900 font-extrabold">৳১,৮৫০</span>
+<span class="block font-body-sm text-body-sm text-slate-400 line-through">৳২,৮৫০</span>
+</div>
+<button class="p-3 rounded-xl bg-primary text-white hover:bg-primary/90 active:scale-95 transition-all shadow-md shadow-indigo-500/20" title="Quick Add to Cart">
+<span class="material-symbols-outlined text-lg">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="group flex flex-col justify-between rounded-2xl bg-white border border-slate-200 hover:border-slate-300 p-4 transition-all duration-300 shadow-sm hover:shadow-lg">
+<div class="space-y-3">
+<div class="relative w-full aspect-square rounded-xl overflow-hidden bg-slate-50 border border-slate-100">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Korean Centella calming moisture facial serum bottle with glass dropper dispenser showing transparent dewy essence droplet on minimalist marble" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDasgckhLJOGXZ88qG2h4cToX9bq68Y2YQHJFW1l5HxoQIbMGX0a-eg7u12jZNJlQZh-b71l9aikHFuV3fdr78isaq9boQ8VltqUh1r3dNWhT3W6DT6sFPccQLm1b0i7iWJ4PKdPAvOWWcMNCsn6BRNLL9RG2_c-GRIIcDOTHSDJLpQY0Kh0SjuhEwQvKxE04oz-f9vD0RWTazgUzl7TjESp580ru_pbcI9xFH_jBwfkNNYe7SQ6MxzcQ"/>
+<span class="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-md bg-emerald-600 text-white font-label-sm text-label-sm font-extrabold shadow-sm">-20%</span>
+<button class="absolute top-2.5 right-2.5 p-2 rounded-full bg-white/90 shadow-sm backdrop-blur-md text-slate-400 hover:text-red-500 transition-colors" title="Save to wishlist">
+<span class="material-symbols-outlined text-base">favorite</span>
+</button>
+</div>
+<div class="space-y-1.5">
+<div class="flex items-center gap-1 text-[11px] text-slate-500 font-medium">
+<span class="material-symbols-outlined text-xs text-amber-500">star</span>
+<strong class="text-slate-900">4.7</strong>
+<span>(314 reviews)</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-slate-900 font-bold line-clamp-2 group-hover:text-primary transition-colors">
+                  Pure Centella 100ml Barrier Repair Calming Ampoule
+                </h3>
+</div>
+</div>
+<div class="space-y-3 pt-4">
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-50 border border-emerald-100 text-emerald-700 text-[11px] font-semibold">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span>Xeni Live Stock: 9 units in Uttara Store</span>
+</div>
+<div class="flex items-center justify-between pt-1">
+<div>
+<span class="font-currency-display text-currency-display text-slate-900 font-extrabold">৳১,৬৫০</span>
+<span class="block font-body-sm text-body-sm text-slate-400 line-through">৳২,১০০</span>
+</div>
+<button class="p-3 rounded-xl bg-primary text-white hover:bg-primary/90 active:scale-95 transition-all shadow-md shadow-indigo-500/20" title="Quick Add to Cart">
+<span class="material-symbols-outlined text-lg">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 5 -->
+<div class="group flex flex-col justify-between rounded-2xl bg-white border border-slate-200 hover:border-slate-300 p-4 transition-all duration-300 shadow-sm hover:shadow-lg">
+<div class="space-y-3">
+<div class="relative w-full aspect-square rounded-xl overflow-hidden bg-slate-50 border border-slate-100">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Aerodynamic lightweight smart fitness watch with titanium bezel and vibrant AMOLED health tracking interface displaying heart rate monitor" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxB8l0FOoQOyjpa0FkPV_Gso3BJod42XUWr7GX8dcAAKxZMlNJ89rM3wzeQr1AWDz_o4mLMtVdsgv0jhO6pXI0pTh2qCnJAvnRewATythLy6o2ceG0W3GvmHpqVC2QEGe7TFKOiT612DG_dIST5rqGN6RbyyMNQkF1WYdBVS_4J6D77FDW0Klk4WI5i2dlPjA77_kTQLbi6RhRg5-2fpf7Ev7eEOqo_KNVe8QIp6dOiFBlJDqWeh0nIg"/>
+<span class="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-md bg-emerald-600 text-white font-label-sm text-label-sm font-extrabold shadow-sm">-28%</span>
+<button class="absolute top-2.5 right-2.5 p-2 rounded-full bg-white/90 shadow-sm backdrop-blur-md text-slate-400 hover:text-red-500 transition-colors" title="Save to wishlist">
+<span class="material-symbols-outlined text-base">favorite</span>
+</button>
+</div>
+<div class="space-y-1.5">
+<div class="flex items-center gap-1 text-[11px] text-slate-500 font-medium">
+<span class="material-symbols-outlined text-xs text-amber-500">star</span>
+<strong class="text-slate-900">4.9</strong>
+<span>(650 reviews)</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-slate-900 font-bold line-clamp-2 group-hover:text-primary transition-colors">
+                  Titan Pulse 2 AMOLED GPS Smartwatch (Bangla Font Support)
+                </h3>
+</div>
+</div>
+<div class="space-y-3 pt-4">
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-50 border border-emerald-100 text-emerald-700 text-[11px] font-semibold">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span>Xeni Live Stock: 11 units in Motijheel Hub</span>
+</div>
+<div class="flex items-center justify-between pt-1">
+<div>
+<span class="font-currency-display text-currency-display text-slate-900 font-extrabold">৳৪,১৫০</span>
+<span class="block font-body-sm text-body-sm text-slate-400 line-through">৳৫,৮০০</span>
+</div>
+<button class="p-3 rounded-xl bg-primary text-white hover:bg-primary/90 active:scale-95 transition-all shadow-md shadow-indigo-500/20" title="Quick Add to Cart">
+<span class="material-symbols-outlined text-lg">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 6 -->
+<div class="group flex flex-col justify-between rounded-2xl bg-white border border-slate-200 hover:border-slate-300 p-4 transition-all duration-300 shadow-sm hover:shadow-lg">
+<div class="space-y-3">
+<div class="relative w-full aspect-square rounded-xl overflow-hidden bg-slate-50 border border-slate-100">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Minimalist matte black insulated thermal travel mug thermos on stainless steel desk beside notebook luxury product photography" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3xf6KOs-jIYrKq_fnQAL-0MXFA_aAKALJitCW_FfPbEr5rxMHbKwfQxi1DdMnloWGPybge3tBQKvtaNCnZn6qpHKsuQQq1EhdEevB3KksWJGWDeUH1bquVAvMj7BBwDSXgX2eqnKcXSiY6pnaFyPlb2ViJfHX8x2liGWxasCoIpIlwuXGOyTU11-S4jIc-MvxLJ74hc2eRJDlqrLy_PKM0WdFkpt8zO646Hr-eWCWy74-e3kWsb9Pcg"/>
+<span class="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-md bg-emerald-600 text-white font-label-sm text-label-sm font-extrabold shadow-sm">-22%</span>
+<button class="absolute top-2.5 right-2.5 p-2 rounded-full bg-white/90 shadow-sm backdrop-blur-md text-slate-400 hover:text-red-500 transition-colors" title="Save to wishlist">
+<span class="material-symbols-outlined text-base">favorite</span>
+</button>
+</div>
+<div class="space-y-1.5">
+<div class="flex items-center gap-1 text-[11px] text-slate-500 font-medium">
+<span class="material-symbols-outlined text-xs text-amber-500">star</span>
+<strong class="text-slate-900">4.6</strong>
+<span>(129 reviews)</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-slate-900 font-bold line-clamp-2 group-hover:text-primary transition-colors">
+                  HydroLock 500ml 24hr Temperature Vacuum Tumbler
+                </h3>
+</div>
+</div>
+<div class="space-y-3 pt-4">
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-50 border border-emerald-100 text-emerald-700 text-[11px] font-semibold">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span>Xeni Live Stock: 24 units in Mirpur</span>
+</div>
+<div class="flex items-center justify-between pt-1">
+<div>
+<span class="font-currency-display text-currency-display text-slate-900 font-extrabold">৳৯৫০</span>
+<span class="block font-body-sm text-body-sm text-slate-400 line-through">৳১,২০০</span>
+</div>
+<button class="p-3 rounded-xl bg-primary text-white hover:bg-primary/90 active:scale-95 transition-all shadow-md shadow-indigo-500/20" title="Quick Add to Cart">
+<span class="material-symbols-outlined text-lg">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 7 -->
+<div class="group flex flex-col justify-between rounded-2xl bg-white border border-slate-200 hover:border-slate-300 p-4 transition-all duration-300 shadow-sm hover:shadow-lg">
+<div class="space-y-3">
+<div class="relative w-full aspect-square rounded-xl overflow-hidden bg-slate-50 border border-slate-100">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Ergonomic vertical wireless computer mouse with textured silicone thumb grip and programmable silver scroll wheel on dark pad" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTgrthPnC5dUUIOEHCBeK9OTGiRittHZTLOOaiEet0CN5CqkLKQkAR9n9_zHqjt2iuuUHcdoPPcMBSbcLL2MYvI963ebc6MYak75bc9W8WNWz_b8sE9r0-ohHJB_vB3HgdEJRiHAb34jXH9l3_p_U3x7VJmMVi_CQSH1e_JCbXYMl-Ttmpzjs5c54GRR8uf-A7eUwbPlgsMvfnmvKzroggejy1KKzyS_Y7WRoYk56u3c2M9Dgs8WuVuQ"/>
+<span class="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-md bg-emerald-600 text-white font-label-sm text-label-sm font-extrabold shadow-sm">-30%</span>
+<button class="absolute top-2.5 right-2.5 p-2 rounded-full bg-white/90 shadow-sm backdrop-blur-md text-slate-400 hover:text-red-500 transition-colors" title="Save to wishlist">
+<span class="material-symbols-outlined text-base">favorite</span>
+</button>
+</div>
+<div class="space-y-1.5">
+<div class="flex items-center gap-1 text-[11px] text-slate-500 font-medium">
+<span class="material-symbols-outlined text-xs text-amber-500">star</span>
+<strong class="text-slate-900">4.8</strong>
+<span>(256 reviews)</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-slate-900 font-bold line-clamp-2 group-hover:text-primary transition-colors">
+                  ErgoLift Precision Vertical Wireless Silent Mouse
+                </h3>
+</div>
+</div>
+<div class="space-y-3 pt-4">
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-50 border border-emerald-100 text-emerald-700 text-[11px] font-semibold">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span>Xeni Live Stock: 6 units in Gulshan 2</span>
+</div>
+<div class="flex items-center justify-between pt-1">
+<div>
+<span class="font-currency-display text-currency-display text-slate-900 font-extrabold">৳১,৯৮০</span>
+<span class="block font-body-sm text-body-sm text-slate-400 line-through">৳২,৮০০</span>
+</div>
+<button class="p-3 rounded-xl bg-primary text-white hover:bg-primary/90 active:scale-95 transition-all shadow-md shadow-indigo-500/20" title="Quick Add to Cart">
+<span class="material-symbols-outlined text-lg">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 8 -->
+<div class="group flex flex-col justify-between rounded-2xl bg-white border border-slate-200 hover:border-slate-300 p-4 transition-all duration-300 shadow-sm hover:shadow-lg">
+<div class="space-y-3">
+<div class="relative w-full aspect-square rounded-xl overflow-hidden bg-slate-50 border border-slate-100">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Traditional handmade brass aromatherapy diffuser lamp casting warm ornamental lattice shadows in dark bedroom setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXtR58yholQV7ywfD4JYltlkYGtPHfiLoHU1MZYxIqJIqqW1k66iGXWYB5cG12ly-96Fjlj2OJ9vQSdUx8qV3PlHCHB6R_OQue0VA-GcvbfPikTez5XdOtbGuZBdIjiSQEBLd0SA8CCa9fwPQqgVg0WTZIgTtN-WSeIKNfOZ9oECrfFs43a14ZUYm03TTQrtp7U4GCBQzSdZdmmHlZo50HQf6MnqmbgwDKI59kb6EgtqtUHW2N8rJm4w"/>
+<span class="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-md bg-emerald-600 text-white font-label-sm text-label-sm font-extrabold shadow-sm">-15%</span>
+<button class="absolute top-2.5 right-2.5 p-2 rounded-full bg-white/90 shadow-sm backdrop-blur-md text-slate-400 hover:text-red-500 transition-colors" title="Save to wishlist">
+<span class="material-symbols-outlined text-base">favorite</span>
+</button>
+</div>
+<div class="space-y-1.5">
+<div class="flex items-center gap-1 text-[11px] text-slate-500 font-medium">
+<span class="material-symbols-outlined text-xs text-amber-500">star</span>
+<strong class="text-slate-900">4.7</strong>
+<span>(88 reviews)</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-slate-900 font-bold line-clamp-2 group-hover:text-primary transition-colors">
+                  Artisan Handcrafted Antique Brass Essential Oil Lamp
+                </h3>
+</div>
+</div>
+<div class="space-y-3 pt-4">
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-50 border border-emerald-100 text-emerald-700 text-[11px] font-semibold">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span>Xeni Live Stock: 3 units left in Old Dhaka</span>
+</div>
+<div class="flex items-center justify-between pt-1">
+<div>
+<span class="font-currency-display text-currency-display text-slate-900 font-extrabold">৳১,৪৫০</span>
+<span class="block font-body-sm text-body-sm text-slate-400 line-through">৳১,৭০০</span>
+</div>
+<button class="p-3 rounded-xl bg-primary text-white hover:bg-primary/90 active:scale-95 transition-all shadow-md shadow-indigo-500/20" title="Quick Add to Cart">
+<span class="material-symbols-outlined text-lg">add_shopping_cart</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Discover More Catalog CTA Banner -->
+<div class="mt-12 p-8 rounded-3xl bg-white border border-slate-200 flex flex-col md:flex-row items-center justify-between gap-6 shadow-md">
+<div class="space-y-1.5 text-center md:text-left">
+<h3 class="font-headline-md text-headline-md text-slate-900 font-bold">Looking for specific electronic components or artisan textiles?</h3>
+<p class="font-body-md text-body-md text-slate-600">Connect directly to over 4,800 certified merchant warehouses via Xeni Mesh Protocol.</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="px-6 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-800 font-headline-sm text-headline-sm font-semibold transition-colors">
+              Browse All Brands
+            </button>
+<button class="px-6 py-3 rounded-xl bg-primary text-white font-headline-sm text-headline-sm font-bold shadow-lg shadow-indigo-500/25 hover:bg-primary/90 transition-all">
+              Open Xeni Explorer
+            </button>
+</div>
+</div>
+</section>
+<!-- Bottom Trust & Perks Banner (4 Pillars) -->
+<section class="max-w-7xl mx-auto px-6 py-8 w-full">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Pillar 1 -->
+<div class="p-6 rounded-2xl bg-white border border-slate-200/80 flex items-start gap-4 shadow-sm">
+<div class="w-12 h-12 rounded-xl bg-emerald-50 text-secondary flex items-center justify-center shrink-0 border border-emerald-100">
+<span class="material-symbols-outlined text-2xl">hub</span>
+</div>
+<div class="space-y-1">
+<h4 class="font-headline-sm text-headline-sm text-slate-900 font-bold">Xeni Distributed ERP</h4>
+<p class="font-body-sm text-body-sm text-slate-600 leading-relaxed">
+                Real-time synchronization ensures you never purchase an out-of-stock product. Zero cancellation hassle.
+              </p>
+</div>
+</div>
+<!-- Pillar 2 -->
+<div class="p-6 rounded-2xl bg-white border border-slate-200/80 flex items-start gap-4 shadow-sm">
+<div class="w-12 h-12 rounded-xl bg-indigo-50 text-primary flex items-center justify-center shrink-0 border border-indigo-100">
+<span class="material-symbols-outlined text-2xl">security</span>
+</div>
+<div class="space-y-1">
+<h4 class="font-headline-sm text-headline-sm text-slate-900 font-bold">100% Escrow Protection</h4>
+<p class="font-body-sm text-body-sm text-slate-600 leading-relaxed">
+                Funds held securely until customer verification upon receipt. Instant 10-minute automated refunds.
+              </p>
+</div>
+</div>
+<!-- Pillar 3 -->
+<div class="p-6 rounded-2xl bg-white border border-slate-200/80 flex items-start gap-4 shadow-sm">
+<div class="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0 border border-indigo-100">
+<span class="material-symbols-outlined text-2xl">savings</span>
+</div>
+<div class="space-y-1">
+<h4 class="font-headline-sm text-headline-sm text-slate-900 font-bold">bKash &amp; Nagad Cashbacks</h4>
+<p class="font-body-sm text-body-sm text-slate-600 leading-relaxed">
+                Instant 5% checkout cash credit plus token loyalty rewards with zero gateway processing fees.
+              </p>
+</div>
+</div>
+<!-- Pillar 4 -->
+<div class="p-6 rounded-2xl bg-white border border-slate-200/80 flex items-start gap-4 shadow-sm">
+<div class="w-12 h-12 rounded-xl bg-pink-50 text-[#e2136e] flex items-center justify-center shrink-0 border border-pink-100">
+<span class="material-symbols-outlined text-2xl">support_agent</span>
+</div>
+<div class="space-y-1">
+<h4 class="font-headline-sm text-headline-sm text-slate-900 font-bold">24/7 Live Merchant Desk</h4>
+<p class="font-body-sm text-body-sm text-slate-600 leading-relaxed">
+                Direct bilingual phone and AI chat dispute triage with local regional Dhaka distribution leads.
+              </p>
+</div>
+</div>
+</div>
+</section>
+<!-- Flash Deal Countdown Script -->
+<script>
+        (function initFlashTimer() {
+          let seconds = 10;
+          let minutes = 22;
+          let hours = 4;
+
+          const secEl = document.getElementById('timer-secs');
+          const minEl = document.getElementById('timer-mins');
+          const hrEl = document.getElementById('timer-hours');
+
+          if (!secEl || !minEl || !hrEl) return;
+
+          setInterval(() => {
+            if (seconds > 0) {
+              seconds--;
+            } else {
+              seconds = 59;
+              if (minutes > 0) {
+                minutes--;
+              } else {
+                minutes = 59;
+                if (hours > 0) {
+                  hours--;
+                }
+              }
+            }
+            secEl.textContent = String(seconds).padStart(2, '0');
+            minEl.textContent = String(minutes).padStart(2, '0');
+            hrEl.textContent = String(hours).padStart(2, '0');
+          }, 1000);
+        })();
+      </script>
+</div>
+</main>
+<!-- Clean Light Mode Footer -->
+<footer class="w-full bg-slate-50 text-slate-600 border-t border-slate-200 pt-16 pb-12 mt-20">
+<div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
+<div class="lg:col-span-2 space-y-4">
+<div class="flex items-center gap-3">
+<img alt="Brand logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VOc_INro0VOOJXjjwTwSXZ_qyAp-qPTxQMMEQF6brUr-ct-7zbF3Ra6RfYeQj-sFI3uCFjTUkp309yy4PNRyGYwpjSWXfde0JUx0mUwusGGtly3AN2pULJrwyNVCNRfRTxYjwiyCvVY_KCipmP21RJeGMI9exf9UIQpbVFTuCLDPscqFahrTsrfoLK0sT0wGWGy5TOmITd8bi4w6DnCneLYR0eNpQ1KW_gR2SMXWbYCx63rhYqcXi0b2s"/>
+<span class="font-headline-sm text-headline-sm text-slate-900 font-bold tracking-tight">E-Pic Marketplace</span>
+</div>
+<p class="font-body-sm text-body-sm text-slate-600 max-w-sm leading-relaxed">
+          The hyper-velocity decentralized commerce engine engineered for Bangladesh and Southeast Asia. Real-time distributed stock control powered by Xeni Commerce Architecture.
+        </p>
+<div class="flex items-center gap-3 pt-2">
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white border border-slate-200 shadow-sm">
+<span class="material-symbols-outlined text-secondary text-base">verified_user</span>
+<span class="font-label-sm text-label-sm text-slate-800 font-semibold">100% Escrow Protected</span>
+</div>
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white border border-slate-200 shadow-sm">
+<span class="material-symbols-outlined text-primary text-base">sync_saved_locally</span>
+<span class="font-label-sm text-label-sm text-slate-800 font-semibold">Live Xeni ERP Mesh</span>
+</div>
+</div>
+</div>
+<div class="space-y-3">
+<span class="font-label-md text-label-md uppercase tracking-wider text-slate-900 font-bold block">Customer Service</span>
+<ul class="space-y-2 font-body-sm text-body-sm">
+<li class="hover:text-primary transition-colors cursor-pointer">Instant bKash / Nagad Refunds</li>
+<li class="hover:text-primary transition-colors cursor-pointer">Cash on Delivery (COD) Terms</li>
+<li class="hover:text-primary transition-colors cursor-pointer">Track Active Consignment</li>
+<li class="hover:text-primary transition-colors cursor-pointer">Escrow Guarantee Coverage</li>
+<li class="hover:text-primary transition-colors cursor-pointer">Dispute Resolution Portal</li>
+</ul>
+</div>
+<div class="space-y-3">
+<span class="font-label-md text-label-md uppercase tracking-wider text-slate-900 font-bold block">For Sellers &amp; Partners</span>
+<ul class="space-y-2 font-body-sm text-body-sm">
+<li class="hover:text-primary transition-colors cursor-pointer">Xeni ERP Cloud Integration</li>
+<li class="hover:text-primary transition-colors cursor-pointer">Decentralized Logistics API</li>
+<li class="hover:text-primary transition-colors cursor-pointer">Dhaka &amp; Regional Hub Fulfillment</li>
+<li class="hover:text-primary transition-colors cursor-pointer">Merchant Escrow Payouts</li>
+<li class="hover:text-primary transition-colors cursor-pointer">AI Inventory Forecaster</li>
+</ul>
+</div>
+<div class="space-y-4">
+<span class="font-label-md text-label-md uppercase tracking-wider text-slate-900 font-bold block">Authorized Gateways</span>
+<div class="flex flex-wrap gap-2">
+<span class="px-2.5 py-1 rounded-md bg-[#e2136e]/10 text-[#e2136e] border border-[#e2136e]/30 font-label-sm text-label-sm font-bold">bKash</span>
+<span class="px-2.5 py-1 rounded-md bg-[#f7921e]/10 text-[#d97706] border border-[#f7921e]/30 font-label-sm text-label-sm font-bold">Nagad</span>
+<span class="px-2.5 py-1 rounded-md bg-white border border-slate-200 text-slate-700 font-label-sm text-label-sm font-medium shadow-sm">Visa</span>
+<span class="px-2.5 py-1 rounded-md bg-white border border-slate-200 text-slate-700 font-label-sm text-label-sm font-medium shadow-sm">Mastercard</span>
+<span class="px-2.5 py-1 rounded-md bg-white border border-slate-200 text-slate-700 font-label-sm text-label-sm font-medium shadow-sm">AMEX</span>
+</div>
+<div class="pt-2 space-y-2">
+<span class="text-[11px] font-bold text-slate-500 block uppercase tracking-wider">Download E-Pic App</span>
+<div class="flex gap-2">
+<button class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white hover:bg-slate-100 border border-slate-200 shadow-sm transition-colors">
+<span class="material-symbols-outlined text-base text-primary">android</span>
+<span class="font-label-sm text-label-sm text-slate-800 font-semibold">Play Store</span>
+</button>
+<button class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white hover:bg-slate-100 border border-slate-200 shadow-sm transition-colors">
+<span class="material-symbols-outlined text-base text-slate-700">phone_iphone</span>
+<span class="font-label-sm text-label-sm text-slate-800 font-semibold">App Store</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="max-w-7xl mx-auto px-6 pt-10 mt-10 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+<span>© 2025 E-Pic Marketplace &amp; Xeni Commerce Ecosystem. All rights reserved.</span>
+<div class="flex items-center gap-6">
+<span class="hover:text-slate-900 cursor-pointer">Privacy Policy</span>
+<span class="hover:text-slate-900 cursor-pointer">Terms of Escrow</span>
+<span class="hover:text-slate-900 cursor-pointer">Merchant Agreement</span>
+</div>
+</div>
+</footer>
+</body></html>
