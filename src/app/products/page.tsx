@@ -108,8 +108,7 @@ export default function ProductsPage() {
             সার্ভারের সাথে সংযোগ নেই
           </h1>
           <p className="text-sm text-on-surface-variant">
-            Xeni 2.0 backend-এ পৌঁছানো যাচ্ছে না। Please ensure it&apos;s running at{" "}
-            <code className="text-primary font-mono text-xs">localhost:8080</code>.
+            Xeni 2.0 backend-এ পৌঁছানো যাচ্ছে না। অনুগ্রহ করে কিছুক্ষণ পর আবার চেষ্টা করুন।
           </p>
           <Link
             href="/"
