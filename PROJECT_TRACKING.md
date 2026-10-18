@@ -61,7 +61,11 @@
 | **SSLCommerz Store ID & Pass** | Step 3 (পেমেন্ট) | ⏳ অপেক্ষমাণ (Sandbox দিয়ে কাজ শুরু করা যাবে) |
 | **Google Client ID** | Step 4 (লগইন) | ⏳ অপেক্ষমাণ |
 | **Resend API Key** | Step 4 (ইমেইল OTP) | ⏳ অপেক্ষমাণ |
-| **Xeni 2.0 Droplet/DB Sync** | Step 5 (ডিপ্লয়) | ⏳ অপেক্ষমাণ |
+> [!IMPORTANT]
+> **সার্ভার ডাটাবেজ ও ডিপ্লয়মেন্ট নোট (১৮ অক্টোবর ২০২৬):**
+> 1. `xeni.e-pic.co` সার্ভারে পুরনো এপ্রিল ২০২৬-এর ডেটা (`Xeltra Energy`, `Xeni Fashion`, `Xentro Fashion`) দেখা যাচ্ছে কারণ ড্রপলেটে পূর্বের `postgres_data` ভলিউম বিদ্যমান ছিল।
+> 2. `xeni-2.0` এর ডাটাবেজ সম্পূর্ণ আলাদা করতে `docker-compose.yml`-এ ডাটাবেজ নাম `xeni2_db` এবং ভলিউম `xeni2_postgres_data` তে আইসোলেট করা হয়েছে।
+> 3. GitHub Actions-এ চেক করে পাওয়া গেছে: GitHub একাউন্টে `"The job was not started because your account is locked due to a billing issue."` এরর আসার কারণে অটোমেটিক পুশ-ডেপ্লয়মেন্ট সাময়িকভাবে আটকে আছে। ড্রপলেট কনসোলে গিয়ে একবার `git pull` ও `docker compose up -d` চালালেই সম্পূর্ণ নতুন ফাঁকা ডাটাবেজ চালু হবে।
 
 ---
 
