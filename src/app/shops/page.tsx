@@ -25,18 +25,17 @@ export default function ShopsPage() {
     q: searchQuery.trim() || undefined,
   });
 
-  const shops = data?.data ?? [];
-
   const filteredShops = useMemo(() => {
+    const list = data?.data ?? [];
     if (selectedDistrict === "All Regions") {
-      return shops;
+      return list;
     }
-    return shops.filter(
+    return list.filter(
       (s) =>
         s.district?.toLowerCase() === selectedDistrict.toLowerCase() ||
         (!s.district && selectedDistrict === "Dhaka")
     );
-  }, [shops, selectedDistrict]);
+  }, [data?.data, selectedDistrict]);
 
   const initials = (name: string) =>
     name

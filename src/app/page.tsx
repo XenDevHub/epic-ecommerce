@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useCartStore } from "@/stores/cartStore";
 import { useUIStore } from "@/stores/uiStore";
 import { useProducts, useShops } from "@/hooks/useApi";
-import type { PublicProduct, PublicShop } from "@/types/api";
+import type { PublicProduct } from "@/types/api";
 import type { Product } from "@/types";
 
 interface DropItem {
