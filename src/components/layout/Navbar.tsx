@@ -1,18 +1,24 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCartStore } from "@/stores/cartStore";
 import { useWishlistStore } from "@/stores/wishlistStore";
 import { useUIStore } from "@/stores/uiStore";
+import { authService } from "@/services/authService";
 
 export default function Navbar() {
   const router = useRouter();
   const { itemCount } = useCartStore();
   const { itemCount: getWishlistCount } = useWishlistStore();
-  const { openCart } = useUIStore();
+  const { openCart, openAuth } = useUIStore();
   const [searchQuery, setSearchQuery] = useState("");
+  const [currentUser, setCurrentUser] = useState<ReturnType<typeof authService.getStoredUser>>(null);
+
+  useEffect(() => {
+    setCurrentUser(authService.getStoredUser());
+  }, []);
 
   const cartCount = itemCount();
   const wishlistCount = getWishlistCount();
@@ -121,7 +127,7 @@ export default function Navbar() {
             </Link>
             <Link
               className="hover:text-on-surface transition-colors"
-              href="/#boutiques"
+              href="/shops"
             >
               Boutiques
             </Link>
@@ -173,13 +179,31 @@ export default function Navbar() {
               )}
             </button>
             <div className="pl-1">
-              <Link
-                href="/account"
-                className="w-8 h-8 rounded-full bg-surface-container-high hover:bg-surface-bright flex items-center justify-center text-primary text-xs font-bold ring-1 ring-primary/30 hover:ring-primary transition-all"
-                title="My Account & Orders"
-              >
-                RH
-              </Link>
+              {currentUser ? (
+                <Link
+                  href="/account"
+                  className="w-8 h-8 rounded-full bg-primary/20 text-primary hover:bg-primary/30 flex items-center justify-center text-xs font-bold ring-1 ring-primary/40 hover:ring-primary transition-all"
+                  title={`${currentUser.full_name} — My Account`}
+                >
+                  {currentUser.full_name
+                    .split(" ")
+                    .slice(0, 2)
+                    .map((w) => w[0]?.toUpperCase())
+                    .join("") || "ME"}
+                </Link>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => openAuth("login")}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/10 hover:bg-primary/20 text-primary text-xs font-semibold border border-primary/30 transition-all shadow-sm"
+                  title="Sign In / Register"
+                >
+                  <span className="material-symbols-outlined text-sm">
+                    person
+                  </span>
+                  <span className="hidden sm:inline">Sign In</span>
+                </button>
+              )}
             </div>
           </div>
         </div>

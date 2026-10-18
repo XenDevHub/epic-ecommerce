@@ -2,7 +2,9 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useWishlistStore } from "@/stores/wishlistStore";
+import { authService } from "@/services/authService";
 
 interface OrderRecord {
   id: string;
@@ -23,10 +25,16 @@ interface StoredOrder {
 }
 
 export default function AccountPage() {
+  const router = useRouter();
   const { itemCount: getWishlistCount } = useWishlistStore();
   const [activeTab, setActiveTab] = useState<"orders" | "addresses" | "escrow" | "profile">("orders");
   const [lastOrder, setLastOrder] = useState<StoredOrder | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [currentUser, setCurrentUser] = useState<ReturnType<typeof authService.getStoredUser>>(null);
+
+  useEffect(() => {
+    setCurrentUser(authService.getStoredUser());
+  }, []);
 
   useEffect(() => {
     try {
@@ -134,14 +142,27 @@ export default function AccountPage() {
               <div className="space-y-1">
                 <div className="flex items-center gap-2.5">
                   <h1 className="font-headline-xl text-2xl font-bold text-on-surface">
-                    Riduan Hasan
+                    {currentUser?.full_name || "Guest Customer"}
                   </h1>
                   <span className="px-2.5 py-0.5 rounded-full bg-secondary-container/20 text-secondary text-[11px] font-semibold border border-secondary/20">
                     Smart Escrow Verified
                   </span>
                 </div>
-                <p className="font-body-sm text-xs text-on-surface-variant">
-                  +880 1712 904822 • riduan@example.com
+                <p className="font-body-sm text-xs text-on-surface-variant flex items-center gap-3">
+                  <span>{currentUser?.email || "riduan@example.com"}</span>
+                  {currentUser && (
+                    <button
+                      onClick={async () => {
+                        await authService.logout();
+                        router.push("/");
+                        window.location.reload();
+                      }}
+                      className="text-xs text-error hover:underline flex items-center gap-1 font-medium"
+                    >
+                      <span className="material-symbols-outlined text-xs">logout</span>
+                      Log Out
+                    </button>
+                  )}
                 </p>
                 <div className="flex items-center gap-2 pt-1 text-xs text-on-surface-variant/80">
                   <span className="flex items-center gap-1 text-secondary">
@@ -149,7 +170,7 @@ export default function AccountPage() {
                     <span>100% Escrow Protection Active</span>
                   </span>
                   <span>•</span>
-                  <span>Dhanmondi, Dhaka</span>
+                  <span>Bangladesh</span>
                 </div>
               </div>
             </div>

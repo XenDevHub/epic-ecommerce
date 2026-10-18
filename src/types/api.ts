@@ -41,6 +41,7 @@ export interface PublicShop {
   shop_name: string;
   shop_description?: string;
   shop_logo_url?: string;
+  shop_banner_url?: string;
   district?: string;
   bkash_merchant_number?: string;
   nagad_merchant_number?: string;

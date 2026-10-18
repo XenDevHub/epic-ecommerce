@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCartStore } from "@/stores/cartStore";
 import { useCreateOrder } from "@/hooks/useApi";
+import { orderService } from "@/services/orderService";
 
 type GatewayType = "bkash" | "nagad" | "cards" | "cod";
 
@@ -56,12 +57,14 @@ export default function CheckoutPage() {
     setFeedbackMessage("Vault lock initialised. Handing over to encrypted channel...");
 
     // Map gateway type to Xeni 2.0 payment_method values
-    const paymentMethod: "bkash" | "nagad" | "cod" =
+    const paymentMethod: "bkash" | "nagad" | "cod" | "sslcommerz" =
       selectedGateway === "bkash"
         ? "bkash"
         : selectedGateway === "nagad"
         ? "nagad"
-        : "cod"; // cards and cod both map to cod (physical payment)
+        : selectedGateway === "cards"
+        ? "sslcommerz"
+        : "cod";
 
     // Group cart items — use the most-common shop_id as the primary shop
     const shopIdCounts = items.reduce<Record<string, number>>((acc, item) => {
@@ -116,6 +119,21 @@ export default function CheckoutPage() {
         );
       } catch {
         // ignore localStorage errors
+      }
+
+      // If cards (SSLCommerz) selected, initiate hosted checkout session
+      if (selectedGateway === "cards") {
+        setFeedbackMessage("Connecting to SSLCommerz Secure Multi-Card Gateway...");
+        try {
+          const initRes = await orderService.initSSLCommerz(result.order_id);
+          if (initRes?.gateway_url) {
+            clearCart();
+            window.location.href = initRes.gateway_url;
+            return;
+          }
+        } catch (initErr) {
+          console.warn("SSLCommerz redirect init fallback", initErr);
+        }
       }
 
       setFeedbackMessage("✅ Order placed! Redirecting to confirmation...");

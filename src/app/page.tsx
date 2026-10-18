@@ -4,8 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { useCartStore } from "@/stores/cartStore";
 import { useUIStore } from "@/stores/uiStore";
-import { useProducts } from "@/hooks/useApi";
-import type { PublicProduct } from "@/types/api";
+import { useProducts, useShops } from "@/hooks/useApi";
+import type { PublicProduct, PublicShop } from "@/types/api";
 import type { Product } from "@/types";
 
 interface DropItem {
@@ -68,6 +68,13 @@ export default function Home() {
   });
 
   const apiProducts = productsData?.data ?? [];
+
+  // Fetch real shops from Xeni 2.0
+  const { data: shopsData, isLoading: isLoadingShops } = useShops({
+    per_page: 6,
+  });
+
+  const apiShops = shopsData?.data ?? [];
 
   const toCartProduct = (p: PublicProduct): Product => ({
     id: p.id,
@@ -368,159 +375,139 @@ export default function Home() {
                 Curated Flagship Studios
               </h2>
             </div>
-            <a
+            <Link
               className="text-xs font-semibold text-on-surface-variant hover:text-on-surface flex items-center gap-1 transition-colors"
-              href="#drops"
+              href="/shops"
             >
               <span>View all brand studios</span>
               <span className="material-symbols-outlined text-sm">
                 arrow_forward
               </span>
-            </a>
+            </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Studio 1: Apex Artisanal */}
-            <div className="group rounded-3xl bg-surface-container-low p-6 transition-all duration-300 shadow-lg hover:shadow-2xl">
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-11 h-11 rounded-2xl bg-surface-container-highest flex items-center justify-center font-headline-sm text-sm font-bold text-on-surface shadow-sm">
-                    AX
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-1">
-                      <h3 className="font-headline-sm text-sm font-bold text-on-surface">
-                        Apex Artisanal
-                      </h3>
-                      <span className="material-symbols-outlined text-primary text-xs">
-                        verified
-                      </span>
-                    </div>
-                    <span className="text-[11px] text-on-surface-variant">
-                      Official Flagship • 2-Hr Dispatch
-                    </span>
-                  </div>
-                </div>
-                <span className="text-xs font-bold text-secondary flex items-center gap-0.5">
-                  <span className="material-symbols-outlined text-xs">star</span>
-                  4.9
-                </span>
-              </div>
-              <div className="aspect-[16/9] rounded-2xl overflow-hidden bg-surface-container-lowest mb-4">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  alt="Apex Footwear"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZwR2qdke35-YhmXDncKNWF4Hsp5lXyaDhGGxoXZX4J1TMRVoCx1gVlxA52-G6hoTuNJlMf6tLJA_qnrGjGpt6FtOizUoPvo7tenvfN4XXZwwO9nPwVrYdkbapNIGTmn-_0AWVH4Wm-XvPJdJMdqHgscOEf3ptSuSyWCWLjWx5lh4zKpoT9AwrADMjaz8pulJutH8jAu5fJAT6GFI1Yb4Y4el26FlMbtOZR2WRV7UxxFkzE3KEuVztdw"
-                />
-              </div>
-              <div className="flex items-center justify-between pt-1">
-                <span className="text-xs text-on-surface-variant">
-                  142 Authentic styles
-                </span>
-                <Link
-                  href="/shops/shop-apex-artisanal"
-                  className="px-4 py-2 rounded-full bg-surface-container-high hover:bg-surface-bright text-on-surface text-xs font-semibold transition-colors"
+          {isLoadingShops ? (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[1, 2, 3].map((i) => (
+                <div
+                  key={i}
+                  className="rounded-3xl bg-surface-container-low p-6 space-y-4 animate-pulse"
                 >
-                  Explore Boutique
-                </Link>
-              </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-11 h-11 rounded-2xl bg-surface-container-high" />
+                    <div className="space-y-1.5 flex-1">
+                      <div className="h-4 w-28 bg-surface-container-high rounded" />
+                      <div className="h-3 w-20 bg-surface-container-high rounded" />
+                    </div>
+                  </div>
+                  <div className="aspect-[16/9] rounded-2xl bg-surface-container-high" />
+                  <div className="h-8 bg-surface-container-high rounded-full w-1/2" />
+                </div>
+              ))}
             </div>
+          ) : apiShops.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {apiShops.slice(0, 6).map((shop) => {
+                const initials = shop.shop_name
+                  .split(" ")
+                  .slice(0, 2)
+                  .map((w) => w.charAt(0).toUpperCase())
+                  .join("");
 
-            {/* Studio 2: Anokhi Handloom */}
-            <div className="group rounded-3xl bg-surface-container-low p-6 transition-all duration-300 shadow-lg hover:shadow-2xl">
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-11 h-11 rounded-2xl bg-primary/20 text-primary flex items-center justify-center font-headline-sm text-sm font-bold shadow-sm">
-                    AK
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-1">
-                      <h3 className="font-headline-sm text-sm font-bold text-on-surface">
-                        Anokhi Handloom
-                      </h3>
-                      <span className="material-symbols-outlined text-primary text-xs">
-                        verified
-                      </span>
-                    </div>
-                    <span className="text-[11px] text-on-surface-variant">
-                      Authentic Weavers • Dhaka
-                    </span>
-                  </div>
-                </div>
-                <span className="text-xs font-bold text-secondary flex items-center gap-0.5">
-                  <span className="material-symbols-outlined text-xs">star</span>
-                  4.8
-                </span>
-              </div>
-              <div className="aspect-[16/9] rounded-2xl overflow-hidden bg-surface-container-lowest mb-4">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  alt="Anokhi Jamdani"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2EsvU-4XBMnP0BBVU4vCS0dc8QwDrc_PjoyzL4v32idZQACNFoBZgIvGLNcjaieFwvNKBXcr7FOPcnCWmFk2pFQCgyRAFInyBmWTik-mZJ_6mWUJGlZqmznqQPBe5ZCn0Nhpfrd8yAu2Xpv_cylWt-rKW9M_M5Isouq-85EbNsZFmEWv5v1QWdaDrqvF_cTVyUgxFxWjqsCC7Bh9BXvOuGNI1kGQW-VV42ddzKB4qOs3EFhN77v20HQ"
-                />
-              </div>
-              <div className="flex items-center justify-between pt-1">
-                <span className="text-xs text-on-surface-variant">
-                  86 Handcrafted drops
-                </span>
-                <Link
-                  href="/shops/shop-anokhi-handloom"
-                  className="px-4 py-2 rounded-full bg-surface-container-high hover:bg-surface-bright text-on-surface text-xs font-semibold transition-colors"
-                >
-                  Explore Boutique
-                </Link>
-              </div>
-            </div>
+                const coverImage =
+                  shop.shop_banner_url ||
+                  shop.shop_logo_url ||
+                  "https://lh3.googleusercontent.com/aida-public/AB6AXuDZwR2qdke35-YhmXDncKNWF4Hsp5lXyaDhGGxoXZX4J1TMRVoCx1gVlxA52-G6hoTuNJlMf6tLJA_qnrGjGpt6FtOizUoPvo7tenvfN4XXZwwO9nPwVrYdkbapNIGTmn-_0AWVH4Wm-XvPJdJMdqHgscOEf3ptSuSyWCWLjWx5lh4zKpoT9AwrADMjaz8pulJutH8jAu5fJAT6GFI1Yb4Y4el26FlMbtOZR2WRV7UxxFkzE3KEuVztdw";
 
-            {/* Studio 3: Pulse Acoustics */}
-            <div className="group rounded-3xl bg-surface-container-low p-6 transition-all duration-300 shadow-lg hover:shadow-2xl">
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-11 h-11 rounded-2xl bg-tertiary/20 text-tertiary flex items-center justify-center font-headline-sm text-sm font-bold shadow-sm">
-                    PA
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-1">
-                      <h3 className="font-headline-sm text-sm font-bold text-on-surface">
-                        Pulse Acoustics
-                      </h3>
-                      <span className="material-symbols-outlined text-primary text-xs">
-                        verified
-                      </span>
+                return (
+                  <div
+                    key={shop.id}
+                    className="group rounded-3xl bg-surface-container-low p-6 transition-all duration-300 shadow-lg hover:shadow-2xl border border-outline-variant/10 flex flex-col justify-between"
+                  >
+                    <div>
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="flex items-center gap-3">
+                          <div className="w-11 h-11 rounded-2xl bg-surface-container-highest flex items-center justify-center font-headline-sm text-sm font-bold text-on-surface shadow-sm overflow-hidden shrink-0 border border-outline-variant/20">
+                            {shop.shop_logo_url ? (
+                              /* eslint-disable-next-line @next/next/no-img-element */
+                              <img
+                                src={shop.shop_logo_url}
+                                alt={shop.shop_name}
+                                className="w-full h-full object-cover"
+                              />
+                            ) : (
+                              initials
+                            )}
+                          </div>
+                          <div>
+                            <div className="flex items-center gap-1">
+                              <h3 className="font-headline-sm text-sm font-bold text-on-surface line-clamp-1">
+                                {shop.shop_name}
+                              </h3>
+                              <span className="material-symbols-outlined text-primary text-xs">
+                                verified
+                              </span>
+                            </div>
+                            <span className="text-[11px] text-on-surface-variant">
+                              {shop.district || "Dhaka"} • Official Flagship
+                            </span>
+                          </div>
+                        </div>
+                        <span className="text-xs font-bold text-secondary flex items-center gap-0.5">
+                          <span className="material-symbols-outlined text-xs">
+                            star
+                          </span>
+                          4.9
+                        </span>
+                      </div>
+
+                      <div className="aspect-[16/9] rounded-2xl overflow-hidden bg-surface-container-lowest mb-4 relative">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          alt={shop.shop_name}
+                          src={coverImage}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-surface-container-low/80 via-transparent to-transparent pointer-events-none" />
+                      </div>
                     </div>
-                    <span className="text-[11px] text-on-surface-variant">
-                      Official Hi-Res Audio Importer
-                    </span>
+
+                    <div className="flex items-center justify-between pt-1">
+                      <span className="text-xs text-on-surface-variant">
+                        {shop.total_products > 0
+                          ? `${shop.total_products} Verified items`
+                          : "Curated collection"}
+                      </span>
+                      <Link
+                        href={`/shops/${shop.id}`}
+                        className="px-4 py-2 rounded-full bg-surface-container-high hover:bg-surface-bright text-on-surface text-xs font-semibold transition-colors"
+                      >
+                        Explore Boutique
+                      </Link>
+                    </div>
                   </div>
-                </div>
-                <span className="text-xs font-bold text-secondary flex items-center gap-0.5">
-                  <span className="material-symbols-outlined text-xs">star</span>
-                  4.9
-                </span>
-              </div>
-              <div className="aspect-[16/9] rounded-2xl overflow-hidden bg-surface-container-lowest mb-4">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  alt="Pulse Audio Pro"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuArLaHe7PGVtYzIy4w8MlTUERrmcXK4boooAfqv0KN_krTDzTK-p2zK3AgrlY1q5vKzhL2zsQSARBXGjWf1yW8jgxg0dfws6-lxSMhiB99JEdrtDN2Fo1BfyS-08lpcxyXd0w6RrlzR2kQQUdNbKaI5Uq_gLEPukGvXLI15qS6dsgrr1O3a2VmH39KEKnRVJJ1phrgchS9fsgMXIacXgqbK-mhns5M-Y23fX9QQYElZJ2ybJQHbpSxF2A"
-                />
-              </div>
-              <div className="flex items-center justify-between pt-1">
-                <span className="text-xs text-on-surface-variant">
-                  1-Year Official Warranty
-                </span>
-                <Link
-                  href="/shops/shop-pulse-acoustics"
-                  className="px-4 py-2 rounded-full bg-surface-container-high hover:bg-surface-bright text-on-surface text-xs font-semibold transition-colors"
-                >
-                  Explore Boutique
-                </Link>
-              </div>
+                );
+              })}
             </div>
-          </div>
+          ) : (
+            <div className="rounded-3xl bg-surface-container-low p-8 text-center border border-outline-variant/10">
+              <span className="material-symbols-outlined text-4xl text-on-surface-variant/40 mb-2">
+                storefront
+              </span>
+              <p className="text-sm font-semibold text-on-surface">
+                New Xeni 2.0 Boutiques are launching shortly
+              </p>
+              <p className="text-xs text-on-surface-variant mt-1 mb-4">
+                Explore our curated catalog while merchant studios connect.
+              </p>
+              <Link
+                href="/products"
+                className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-primary text-on-primary text-xs font-semibold"
+              >
+                Browse All Products
+              </Link>
+            </div>
+          )}
         </section>
 
         {/* Curated Drops & Tech Catalog */}

@@ -126,8 +126,15 @@ export default function ShopPage() {
         <section className="max-w-7xl mx-auto px-6 sm:px-8 w-full pb-10">
           <div className="rounded-3xl overflow-hidden bg-surface-container-low border border-outline-variant/15 shadow-xl">
             {/* Cover */}
-            <div className="relative w-full aspect-[4/1] bg-gradient-to-br from-primary/20 via-secondary/15 to-tertiary/20 flex items-center justify-center">
-              {shop.shop_logo_url ? (
+            <div className="relative w-full aspect-[4/1] bg-gradient-to-br from-primary/20 via-secondary/15 to-tertiary/20 flex items-center justify-center overflow-hidden">
+              {shop.shop_banner_url ? (
+                /* eslint-disable-next-line @next/next/no-img-element */
+                <img
+                  className="w-full h-full object-cover"
+                  alt={`${shop.shop_name} cover banner`}
+                  src={shop.shop_banner_url}
+                />
+              ) : shop.shop_logo_url ? (
                 /* eslint-disable-next-line @next/next/no-img-element */
                 <img
                   className="w-full h-full object-cover opacity-30"
@@ -139,7 +146,7 @@ export default function ShopPage() {
                   {initials(shop.shop_name)}
                 </span>
               )}
-              <div className="absolute inset-0 bg-gradient-to-t from-surface-container-low via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-surface-container-low via-surface-container-low/30 to-transparent" />
             </div>
 
             {/* Shop Info */}
